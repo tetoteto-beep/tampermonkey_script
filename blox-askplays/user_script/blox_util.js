@@ -16,7 +16,7 @@
     // ---------------------------------------
     // ControlLeftを押下することで20手戻る処理
     // ---------------------------------------
-    const REPEAT_COUNT = 20;
+    const REPEAT_COUNT = 7;
     document.addEventListener('keydown', function(event) {
         if (event.code === 'ControlLeft') {
             for (let i = 0; i < REPEAT_COUNT; i++) {
