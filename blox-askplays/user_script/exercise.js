@@ -21,11 +21,13 @@
     const EXERCISE_BOOK_OF_HONEY_CUP_LV1 = [
         {
             isPieceQueueShuffle: true,
+            pieceQueueShuffleConstraint: '',
             pieceQueue: '',
             mapCode: '00000000000000000641000000000000000066410000000000000000644100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000052200000000000000055522'
         },
         {
             isPieceQueueShuffle: true,
+            pieceQueueShuffleConstraint: '',
             pieceQueue: '',
             mapCode: '00000000000000044422000000000000000004220000000000000000033300000000000000000036000000000000000000660000000000000000006000000000000000000001000000000000000075510000000000000000775100000000000000000751'
         },
@@ -35,11 +37,13 @@
     const EXERCISE_BOOK_OF_HONEY_CUP_LV2 = [ // 二巡目の練習（ピース2つ）
         {
             isPieceQueueShuffle: false,
+            pieceQueueShuffleConstraint: '',
             pieceQueue: 'js',
             mapCode: '00000000000000000041000000000000000000410000000000000000044100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000002200000000000000000022'
         },
         {
             isPieceQueueShuffle: false,
+            pieceQueueShuffleConstraint: '',
             pieceQueue: 'lz',
             mapCode: '00000000000000000022000000000000000000220000000000000000033300000000000000000036000000000000000000660000000000000000006000000000000000000001000000000000000005510000000000000000005100000000000000000051'
         },
@@ -48,6 +52,7 @@
     const EXERCISE_BOOK_OF_HONEY_CUP_LV3 = [ // 二巡目の練習（ピース4つ）
         {
             isPieceQueueShuffle: true,
+            pieceQueueShuffleConstraint: '',
             pieceQueue: 'tjls',
             mapCode: '00000000000000000001000000000000000000010000000000000000000100000000000000000001000000000000000000700000000000000000007700000000000000000007000000000000000000000000000000000000002200000000000000000022'
         },
@@ -59,16 +64,33 @@
 
     ];
 
+    const EXERCISE_BOOK_OF_HONEY_CUP_LV4 = [// 初手から。ただし、ホールドなしではちみつ砲が組めるツモのみ。
+        {
+            isPieceQueueShuffle: true,
+            pieceQueueShuffleConstraint: 'i<l and l<s and z<t and o<j',
+            pieceQueue: 'toiszlj',
+            mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        },
+        {
+            isPieceQueueShuffle: true,
+            pieceQueueShuffleConstraint: 'i<j and j<z and s<t and o<l',
+            pieceQueue: '',
+            mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        },
+
+    ];
+
     const EXERCISE_BOOK_OF_MEISOU = [
         {
             isPieceQueueShuffle: true,
+            pieceQueueShuffleConstraint: '',
             pieceQueue: '',
             mapCode: '00000000000000001111000000000000000004440000000000000000066400000000000000000066000000000000000003330000000000000000003000000000000000000005000000000000000075550000000000000000772200000000000000000722'
         },
     ];
 
 
-    const EXERCISE_BOOK = EXERCISE_BOOK_OF_HONEY_CUP_LV3
+    const EXERCISE_BOOK = EXERCISE_BOOK_OF_HONEY_CUP_LV4
 
 
     const MAP_SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
@@ -116,7 +138,13 @@
 
         // pieceQueueをシャッフルするかどうかをチェック
         if (exercise.isPieceQueueShuffle) {
-            exercise.pieceQueue = shuffleString(exercise.pieceQueue);
+            if (exercise.pieceQueueShuffleConstraint === "") {
+                console.log("制約なし")
+                exercise.pieceQueue = shuffleString(exercise.pieceQueue);
+            } else {
+                console.log("制約あり", exercise.pieceQueue, exercise.pieceQueueShuffleConstraint)
+                exercise.pieceQueue = applyConstraints(exercise.pieceQueue, exercise.pieceQueueShuffleConstraint);
+            }
             console.log(exercise.pieceQueue)
         }
 

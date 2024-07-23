@@ -122,16 +122,27 @@ function applyConstraints(str, constraints) {
         [constraintsList[i], constraintsList[j]] = [constraintsList[j], constraintsList[i]];
     }
     
+
     // 制約を適用してシャッフルを調整する
+    // FIXME: あまりきれいな処理じゃない。オーダーn^2？よくないので修正したくはある。動くのでいったんよしとする。
     const arr = randomStr.split('');
-    for (const [before, after] of constraintsList) {
-        const beforeIndex = arr.indexOf(before);
-        const afterIndex = arr.indexOf(after);
-        if (beforeIndex > afterIndex) {
-            // 入れ替えが必要
-            [arr[beforeIndex], arr[afterIndex]] = [arr[afterIndex], arr[beforeIndex]];
+    let max_loop_cnt = 10;
+    for(let i = 0; i>max_loop_cnt;i++) {
+        
+        const arr_before = [...arr]; // 配列のコピーを作成
+        for (const [before, after] of constraintsList) {
+            const beforeIndex = arr.indexOf(before);
+            const afterIndex = arr.indexOf(after);
+            if (beforeIndex > afterIndex) {
+                // 入れ替えが必要
+                [arr[beforeIndex], arr[afterIndex]] = [arr[afterIndex], arr[beforeIndex]];
+            }
+        }
+
+        if (arr.join('') === arr_before.join('')) {
+            break
         }
     }
-    
     return arr.join('');
+    
 }
