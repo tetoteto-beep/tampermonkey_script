@@ -169,7 +169,7 @@
         }
 
         // pieceQueueをシャッフルするかどうかをチェック
-        if (exercise.isPieceQueueShuffle) {
+        if (g_exercise_book.isPieceQueueShuffle) {
             exercise.pieceQueue = shuffleString(exercise.pieceQueue);
             console.log(exercise.pieceQueue)
         }
