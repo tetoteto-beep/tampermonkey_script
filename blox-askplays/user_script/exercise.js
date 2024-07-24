@@ -91,6 +91,32 @@
         ]
     }
 
+    const EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT = {
+        win_condition: {
+            type: 1, // "0"Lines, "1"PC, "2"No Garbage
+            count: 2,
+        },
+        isPieceQueueShuffle: false,
+        exercise_list: [
+            {
+                pieceQueue: '',
+                mapCode: '00000000000000001111000000000000000052210000000000000000522100000000000000005501000000000000000000000000000000000000000700000000000000000447000000000000000006630000000000000000006200000000000000000052'
+            },
+            {
+                pieceQueue: '',
+                mapCode: '00000000000000000042000000000000000000220000000000000000042300000000000000000446000000000000000000060000000000000000000000000000000000005701000000000000000057710000000000000000557100000000000000001111'
+            },
+            {
+                pieceQueue: '',
+                mapCode: '00000000000000001111000000000000000044610000000000000000466100000000000000004601000000000000000000000000000000000000000700000000000000000557000000000000000005230000000000000000002200000000000000000052'
+            },
+            {
+                pieceQueue: '',
+                mapCode: '00000000000000000042000000000000000000720000000000000000077300000000000000000556000000000000000000060000000000000000000000000000000000004401000000000000000042210000000000000000422100000000000000001111'
+            },
+        ]
+    }
+
     const EXERCISE_BOOK_OF_DPC_SZ = {
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
@@ -261,6 +287,7 @@
             { text: 'はちみつ砲(lv2)', value: 'honeyCannonLv2' },
             { text: 'はちみつ砲(lv3)', value: 'honeyCannonLv3' },
             { text: 'はちみつ砲(lv4)', value: 'honeyCannonLv4' },
+            { text: 'はちみつ砲(基本形PCルート)', value: 'basic_pc_root' },
             { text: 'DPC（S/Z残し）', value: 'szDPC' },
             { text: 'DPC（O残し）', value: 'oDPC' }
         ];
@@ -298,6 +325,9 @@
                     break;
                 case 'honeyCannonLv4':
                     g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_LV4;
+                    break;
+                case 'basic_pc_root':
+                    g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT;
                     break;
                 case 'szDPC':
                     g_exercise_book = EXERCISE_BOOK_OF_DPC_SZ;
