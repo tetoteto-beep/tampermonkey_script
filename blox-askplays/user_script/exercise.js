@@ -92,19 +92,21 @@
         exercise_list: [
             {
                 pieceQueue: 'toiszlj',
-                pieceQueueShuffleConstraint: 'i<l and l<s and z<t and o<j',
+                //pieceQueueShuffleConstraint: 'i<l and l<s and z<t and o<j',
+                pieceQueueShuffleConstraint: 'i<l and l<s and o<j',
                 mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
             },
             {
                 pieceQueue: 'toiszlj',
-                pieceQueueShuffleConstraint: 'i<j and j<z and s<t and o<l',
+                //pieceQueueShuffleConstraint: 'i<j and j<z and s<t and o<l',
+                pieceQueueShuffleConstraint: 'i<j and j<z and o<l',
                 mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
             },
         ]
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT = {
-        description: "はちみつ砲　基本形　PCルートの練習",
+        description: "はちみつ砲　基本形PCルートの練習",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 2,
