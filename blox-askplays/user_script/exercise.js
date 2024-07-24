@@ -19,6 +19,7 @@
     // 定数定義
     // ----------------------------
     const EXERCISE_BOOK_OF_HONEY_CUP_LV1 = {
+        description: "はちみつ砲　2巡目の練習①",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 2,
@@ -27,16 +28,19 @@
         exercise_list: [
             {
                 pieceQueue: '',
+                pieceQueueShuffleConstraint: '',
                 mapCode: '00000000000000000641000000000000000066410000000000000000644100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000052200000000000000055522'
             },
             {
                 pieceQueue: '',
+                pieceQueueShuffleConstraint: '',
                 mapCode: '00000000000000044422000000000000000004220000000000000000033300000000000000000036000000000000000000660000000000000000006000000000000000000001000000000000000075510000000000000000775100000000000000000751'
             },
         ]
     }
 
-    const EXERCISE_BOOK_OF_HONEY_CUP_LV2 = { // 二巡目の練習（ピース2つ）
+    const EXERCISE_BOOK_OF_HONEY_CUP_LV2 = {
+        description: "はちみつ砲　2巡目の練習②",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 2,
@@ -45,16 +49,19 @@
         exercise_list: [
             {
                 pieceQueue: 'js',
+                pieceQueueShuffleConstraint: '',
                 mapCode: '00000000000000000041000000000000000000410000000000000000044100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000002200000000000000000022'
             },
             {
                 pieceQueue: 'lz',
+                pieceQueueShuffleConstraint: '',
                 mapCode: '00000000000000000022000000000000000000220000000000000000033300000000000000000036000000000000000000660000000000000000006000000000000000000001000000000000000005510000000000000000005100000000000000000051'
             },
         ]
     }
 
-    const EXERCISE_BOOK_OF_HONEY_CUP_LV3 = { // 二巡目の練習（ピース4つ）
+    const EXERCISE_BOOK_OF_HONEY_CUP_LV3 = {
+        description: "はちみつ砲　2巡目の練習③",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 2,
@@ -63,10 +70,12 @@
         exercise_list: [
             {
                 pieceQueue: 'tjls',
+                pieceQueueShuffleConstraint: '',
                 mapCode: '00000000000000000001000000000000000000010000000000000000000100000000000000000001000000000000000000700000000000000000007700000000000000000007000000000000000000000000000000000000002200000000000000000022'
             },
             {
                 pieceQueue: 'tjlz',
+                pieceQueueShuffleConstraint: '',
                 mapCode: '00000000000000000022000000000000000000220000000000000000000000000000000000000006000000000000000000660000000000000000006000000000000000000001000000000000000000010000000000000000000100000000000000000001'
             },
 
@@ -74,6 +83,7 @@
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_LV4 = {// 初手から。ただし、ホールドなしではちみつ砲が組めるツモのみ。
+        description: "はちみつ砲　初手から練習（セットアップ可能なミノ順のみ）",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 2,
@@ -82,16 +92,19 @@
         exercise_list: [
             {
                 pieceQueue: 'toiszlj',
+                pieceQueueShuffleConstraint: 'i<l and l<s and z<t and o<j',
                 mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
             },
             {
-                pieceQueue: '',
+                pieceQueue: 'toiszlj',
+                pieceQueueShuffleConstraint: 'i<j and j<z and s<t and o<l',
                 mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
             },
         ]
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT = {
+        description: "はちみつ砲　基本形　PCルートの練習",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 2,
@@ -118,11 +131,13 @@
     }
 
     const EXERCISE_BOOK_OF_DPC_SZ = {
+        description: "DPC練習 s/z残し",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 1,
         },
         isPieceQueueShuffle: false,
+        pieceQueueConstraint: "",
         exercise_list: [
             {
                 pieceQueue: 's',
@@ -136,11 +151,13 @@
     }
 
     const EXERCISE_BOOK_OF_DPC_O = {
+        description: "DPC練習 o残し",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 1,
         },
         isPieceQueueShuffle: false,
+        pieceQueueConstraint: "",
         exercise_list: [
             {
                 pieceQueue: 'o',
@@ -196,8 +213,16 @@
 
         // pieceQueueをシャッフルするかどうかをチェック
         if (g_exercise_book.isPieceQueueShuffle) {
-            exercise.pieceQueue = shuffleString(exercise.pieceQueue);
-            console.log(exercise.pieceQueue)
+
+            if (exercise.pieceQueueShuffleConstraint) {
+                exercise.pieceQueue = shuffleConstrainedString(exercise.pieceQueue, exercise.pieceQueueShuffleConstraint);
+                console.log(exercise.pieceQueue, "if側")
+            }
+            else {
+                exercise.pieceQueue = shuffleString(exercise.pieceQueue);
+                console.log(exercise.pieceQueue, "else側")
+            }
+            
         }
 
         pieceQueueElement.value = exercise.pieceQueue;
@@ -283,13 +308,13 @@
         dropdown.style.fontSize = '16px';
         dropdown.style.marginBottom = '20px';
         let options = [
-            { text: 'はちみつ砲(lv1)', value: 'honeyCannonLv1' },
-            { text: 'はちみつ砲(lv2)', value: 'honeyCannonLv2' },
-            { text: 'はちみつ砲(lv3)', value: 'honeyCannonLv3' },
-            { text: 'はちみつ砲(lv4)', value: 'honeyCannonLv4' },
-            { text: 'はちみつ砲(基本形PCルート)', value: 'basic_pc_root' },
-            { text: 'DPC（S/Z残し）', value: 'szDPC' },
-            { text: 'DPC（O残し）', value: 'oDPC' }
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV1.description, value: 'honeyCannonLv1' },
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV2.description, value: 'honeyCannonLv2' },
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV3.description, value: 'honeyCannonLv3' },
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV4.description, value: 'honeyCannonLv4' },
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT.description, value: 'basic_pc_root' },
+            { text: EXERCISE_BOOK_OF_DPC_SZ.description, value: 'szDPC' },
+            { text: EXERCISE_BOOK_OF_DPC_O.description, value: 'oDPC' }
         ];
         for (let option of options) {
             let opt = document.createElement('option');
