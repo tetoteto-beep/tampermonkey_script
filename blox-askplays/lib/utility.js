@@ -73,76 +73,183 @@ function shuffleString(str) {
     return arr.join('');
 }
 
+//=================================
+// graphUtils.js
+
 /**
- * 制約文字列を解析して、制約のペアリストを生成します。
- * 
- * @param {string} constraints 制約文字列（例: "{a,b}<c and d<{e,f,g}"）
- * @returns {Array<Array<string>>} 制約のペアリスト
- * 
- * @example
- * // 出力例: [['a', 'c'], ['b', 'c'], ['d', 'e'], ['d', 'f'], ['d', 'g']]
- * console.log(parseConstraints('{a,b}<c and d<{e,f,g}'));
+ * グラフがサイクルを含むかどうかをチェックする関数
+ * @param {Object} graph - ノードとエッジの定義を含むグラフ
+ * @returns {boolean} - サイクルが存在する場合は true、それ以外の場合は false
  */
+function hasCycle(graph) {
+    const visited = new Set();
+    const stack = new Set();
+
+    function visit(node) {
+        if (stack.has(node)) {
+            return true; // サイクル検出
+        }
+        if (visited.has(node)) {
+            return false;
+        }
+
+        visited.add(node);
+        stack.add(node);
+
+        for (const neighbor of graph[node].outEdges) {
+            if (visit(neighbor)) {
+                return true;
+            }
+        }
+
+        stack.delete(node);
+        return false;
+    }
+
+    for (const node in graph) {
+        if (visit(node)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * グラフからノードを削除し、エッジを更新する関数
+ * @param {Object} graph - ノードとエッジの定義を含むグラフ
+ * @param {string} node - 削除するノード
+ */
+function removeNode(graph, node) {
+    const outEdges = graph[node].outEdges;
+    delete graph[node];
+    outEdges.forEach(outEdge => {
+        if (graph[outEdge]) {
+            graph[outEdge].inEdges--;
+        }
+    });
+}
+
+/**
+ * エッジのないノードを取得する関数
+ * @param {Object} graph - ノードとエッジの定義を含むグラフ
+ * @returns {Array} - エッジのないノードの配列
+ */
+function getNodesWithNoInEdges(graph) {
+    const nodes = [];
+    for (const node in graph) {
+        if (graph[node].inEdges === 0) {
+            nodes.push(node);
+        }
+    }
+    return nodes;
+}
+
+/**
+ * ランダムにノードを取得する関数
+ * @param {Array} nodes - ノードの配列
+ * @returns {string} - ランダムに選ばれたノード
+ */
+function getRandomNode(nodes) {
+    const randomIndex = Math.floor(Math.random() * nodes.length);
+    return nodes[randomIndex];
+}
+
+/**
+ * ノードとエッジを使用してグラフを構築する関数
+ * @param {Array} edges - エッジの配列（各エッジは [before, after] 形式）
+ * @param {string} str - ノードとして使用する文字列
+ * @returns {Object} - 構築されたグラフ
+ */
+function buildGraph(edges, str) {
+    const graph = {};
+    str.split('').forEach(char => {
+        if (!graph[char]) {
+            graph[char] = { inEdges: 0, outEdges: [] };
+        }
+    });
+    edges.forEach(([before, after]) => {
+        if (!graph[before]) {
+            graph[before] = { inEdges: 0, outEdges: [] };
+        }
+        if (!graph[after]) {
+            graph[after] = { inEdges: 0, outEdges: [] };
+        }
+        graph[before].outEdges.push(after);
+        graph[after].inEdges++;
+    });
+    return graph;
+}
+
+
+//============================================
+
+// 制約を解析してエッジのリストを生成する関数
 function parseConstraints(constraints) {
-    const constraintPattern = /(\{?[a-z,]+\}?)<(\{?[a-z,]+\}?)/g;
-    let match;
-    const parsedConstraints = [];
-    
-    while ((match = constraintPattern.exec(constraints)) !== null) {
-        const left = match[1].replace(/[{}]/g, '').split(',');
-        const right = match[2].replace(/[{}]/g, '').split(',');
-        for (let l of left) {
-            for (let r of right) {
-                parsedConstraints.push([l, r]);
-            }
-        }
-    }
-    
-    return parsedConstraints;
+    const constraintList = [];
+    const individualConstraints = constraints.split(" and ");
+    individualConstraints.forEach(constraint => {
+        const [before, after] = constraint.split("<");
+        const beforeChars = before.replace(/[{}]/g, '').split(",").map(char => char.trim());
+        const afterChars = after.replace(/[{}]/g, '').split(",").map(char => char.trim());
+        beforeChars.forEach(beforeChar => {
+            afterChars.forEach(afterChar => {
+                constraintList.push([beforeChar, afterChar]);
+            });
+        });
+    });
+    return constraintList;
 }
 
-/**
- * 制約リストに従ってシャッフルされた文字列を調整します。
- * 
- * @param {string} str シャッフルする文字列
- * @param {string} constraints 制約文字列（例: "{a,b}<c and d<{e,f,g}"）
- * @returns {string} 制約に従ったシャッフルされた文字列
- * 
- * @example
- * // 出力例: 'adecfg'
- * console.log(applyConstraints('abcdefg', '{a,b}<c and d<{e,f,g}'));
- */
-function applyConstraints(str, constraints) {
-    let randomStr = shuffleString(str);
-    const constraintsList = parseConstraints(constraints);
-    
-    // 制約リストをランダムに並び替える
-    for (let i = constraintsList.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [constraintsList[i], constraintsList[j]] = [constraintsList[j], constraintsList[i]];
-    }
-    
+// 制約付き文字列シャッフル関数
+function shuffleConstrainedString(str, constraints) {
+    const parsedConstraints = parseConstraints(constraints);
+    const graph = buildGraph(parsedConstraints, str);
 
-    // 制約を適用してシャッフルを調整する
-    // FIXME: あまりきれいな処理じゃない。オーダーn^2？よくないので修正したくはある。動くのでいったんよしとする。
-    const arr = randomStr.split('');
-    let max_loop_cnt = 10;
-    for(let i = 0; i>max_loop_cnt;i++) {
-        
-        const arr_before = [...arr]; // 配列のコピーを作成
-        for (const [before, after] of constraintsList) {
-            const beforeIndex = arr.indexOf(before);
-            const afterIndex = arr.indexOf(after);
-            if (beforeIndex > afterIndex) {
-                // 入れ替えが必要
-                [arr[beforeIndex], arr[afterIndex]] = [arr[afterIndex], arr[beforeIndex]];
+    // サイクル検出
+    if (hasCycle(graph)) {
+        throw new Error("The graph contains a cycle and cannot be processed.");
+    }
+
+    let result = "";
+    let hold = null;
+
+    while (Object.keys(graph).length > 0) {
+        let node;
+
+        // ホールドが未使用の場合、すべてのノードの集合からランダムに選択
+        if (!hold) {
+            const allNodes = Object.keys(graph);
+            node = getRandomNode(allNodes);
+
+            if (graph[node].inEdges > 0) {
+                hold = node;
+                result += node;
+                // ノードの削除はホールド解除時に行う
+            } else {
+                result += node;
+                removeNode(graph, node);
             }
+        } else {
+            // ホールド使用状態の場合
+            const nodesWithNoInEdges = getNodesWithNoInEdges(graph);
+            node = getRandomNode(nodesWithNoInEdges);
+            result += node;
+            removeNode(graph, node);
         }
 
-        if (arr.join('') === arr_before.join('')) {
-            break
+        // ホールド解除チェック
+        if (hold && graph[hold].inEdges === 0) {
+            removeNode(graph, hold);
+            hold = null;
         }
     }
-    return arr.join('');
-    
+
+    return result;
 }
+
+// 使用例
+//const str = "sztj";
+//const constraints = "s<j and z<{s,t}";
+//const shuffledString = shuffleConstrainedString(str, constraints);
+//console.log(shuffledString); // 例: "stzj", "ztsi", など
