@@ -19,6 +19,7 @@
     // 定数定義
     // ----------------------------
     const EXERCISE_BOOK_OF_HONEY_CUP_LV1 = {
+        id: 'honey_cup_2junme_1',
         description: "【はちみつ砲】2巡目の練習①",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
@@ -40,6 +41,7 @@
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_LV2 = {
+        id: 'honey_cup_2junme_2',
         description: "【はちみつ砲】2巡目の練習②",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
@@ -61,6 +63,7 @@
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_LV3 = {
+        id: 'honey_cup_2junme_3',
         description: "【はちみつ砲】2巡目の練習③",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
@@ -83,6 +86,7 @@
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_LV4 = {// 初手から。ただし、ホールドなしではちみつ砲が組めるツモのみ。
+        id: 'honey_cup_2junme_4',
         description: "【はちみつ砲】1巡目の練習 ※セットアップ可能なミノ順のみ",
         win_condition: {
             type: 0, // "0"Lines, "1"PC, "2"No Garbage
@@ -106,6 +110,7 @@
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT = {
+        id: 'honey_cup_basic_pc_root',
         description: "【はちみつ砲】3巡目 基本形 PCルートの練習",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
@@ -132,7 +137,24 @@
         ]
     }
 
+    const EXERCISE_BOOK_OF_ONLY_COUNT = {
+        id: 'only_count_mode',
+        description: "ノーマル練習（カウント機能のみ）",
+        win_condition: {
+            type: 1, // "0"Lines, "1"PC, "2"No Garbage
+            count: 10,
+        },
+        isPieceQueueShuffle: false,
+        exercise_list: [
+            {
+                pieceQueue: '',
+                mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+            },
+        ]
+    }
+
     const EXERCISE_BOOK_OF_DPC_SZ = {
+        id: 'dpc_sz',
         description: "【DPC練習】s/z残し",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
@@ -153,6 +175,7 @@
     }
 
     const EXERCISE_BOOK_OF_DPC_O = {
+        id: 'dpc_o',
         description: "【DPC練習】o残し",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
@@ -310,13 +333,14 @@
         dropdown.style.fontSize = '16px';
         dropdown.style.marginBottom = '20px';
         let options = [
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV4.description, value: 'honeyCannonLv4' },
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV1.description, value: 'honeyCannonLv1' },
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV2.description, value: 'honeyCannonLv2' },
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV3.description, value: 'honeyCannonLv3' },
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT.description, value: 'basic_pc_root' },
-            { text: EXERCISE_BOOK_OF_DPC_SZ.description, value: 'szDPC' },
-            { text: EXERCISE_BOOK_OF_DPC_O.description, value: 'oDPC' }
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV4.description, value: EXERCISE_BOOK_OF_HONEY_CUP_LV4.id },
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV1.description, value: EXERCISE_BOOK_OF_HONEY_CUP_LV1.id },
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV2.description, value: EXERCISE_BOOK_OF_HONEY_CUP_LV2.id },
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV3.description, value: EXERCISE_BOOK_OF_HONEY_CUP_LV3.id },
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT.description, value: EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT.id },
+            { text: EXERCISE_BOOK_OF_DPC_SZ.description, value: EXERCISE_BOOK_OF_DPC_SZ.id },
+            { text: EXERCISE_BOOK_OF_DPC_O.description, value: EXERCISE_BOOK_OF_DPC_O.id },
+            { text: EXERCISE_BOOK_OF_ONLY_COUNT.description, value: EXERCISE_BOOK_OF_ONLY_COUNT.id },
         ];
         for (let option of options) {
             let opt = document.createElement('option');
@@ -341,26 +365,29 @@
 
             let selectedValue = document.getElementById('gameModeSelector').value;
             switch (selectedValue) {
-                case 'honeyCannonLv1':
+                case EXERCISE_BOOK_OF_HONEY_CUP_LV1.id:
                     g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_LV1;
                     break;
-                case 'honeyCannonLv2':
+                case EXERCISE_BOOK_OF_HONEY_CUP_LV2.id:
                     g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_LV2;
                     break;
-                case 'honeyCannonLv3':
+                case EXERCISE_BOOK_OF_HONEY_CUP_LV3.id:
                     g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_LV3;
                     break;
-                case 'honeyCannonLv4':
+                case EXERCISE_BOOK_OF_HONEY_CUP_LV4.id:
                     g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_LV4;
                     break;
-                case 'basic_pc_root':
+                case EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT.id:
                     g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT;
                     break;
-                case 'szDPC':
+                case EXERCISE_BOOK_OF_DPC_SZ.id:
                     g_exercise_book = EXERCISE_BOOK_OF_DPC_SZ;
                     break;
-                case 'oDPC':
+                case EXERCISE_BOOK_OF_DPC_O.id:
                     g_exercise_book = EXERCISE_BOOK_OF_DPC_O;
+                    break;
+                case EXERCISE_BOOK_OF_ONLY_COUNT.id:
+                    g_exercise_book = EXERCISE_BOOK_OF_ONLY_COUNT;
                     break;
                 default:
                     g_exercise_book = null;
