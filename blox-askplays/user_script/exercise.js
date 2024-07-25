@@ -19,7 +19,7 @@
     // 定数定義
     // ----------------------------
     const EXERCISE_BOOK_OF_HONEY_CUP_LV1 = {
-        description: "はちみつ砲　2巡目の練習①",
+        description: "【はちみつ砲】2巡目の練習①",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 2,
@@ -40,7 +40,7 @@
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_LV2 = {
-        description: "はちみつ砲　2巡目の練習②",
+        description: "【はちみつ砲】2巡目の練習②",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 2,
@@ -61,7 +61,7 @@
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_LV3 = {
-        description: "はちみつ砲　2巡目の練習③",
+        description: "【はちみつ砲】2巡目の練習③",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 2,
@@ -83,10 +83,10 @@
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_LV4 = {// 初手から。ただし、ホールドなしではちみつ砲が組めるツモのみ。
-        description: "はちみつ砲　初手から練習（セットアップ可能なミノ順のみ）",
+        description: "【はちみつ砲】1巡目の練習 ※セットアップ可能なミノ順のみ",
         win_condition: {
-            type: 1, // "0"Lines, "1"PC, "2"No Garbage
-            count: 2,
+            type: 0, // "0"Lines, "1"PC, "2"No Garbage
+            count: 1,
         },
         isPieceQueueShuffle: true,
         exercise_list: [
@@ -106,7 +106,7 @@
     }
 
     const EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT = {
-        description: "はちみつ砲　基本形PCルートの練習",
+        description: "【はちみつ砲】3巡目 基本形 PCルートの練習",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 2,
@@ -133,7 +133,7 @@
     }
 
     const EXERCISE_BOOK_OF_DPC_SZ = {
-        description: "DPC練習 s/z残し",
+        description: "【DPC練習】s/z残し",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 1,
@@ -153,7 +153,7 @@
     }
 
     const EXERCISE_BOOK_OF_DPC_O = {
-        description: "DPC練習 o残し",
+        description: "【DPC練習】o残し",
         win_condition: {
             type: 1, // "0"Lines, "1"PC, "2"No Garbage
             count: 1,
@@ -310,10 +310,10 @@
         dropdown.style.fontSize = '16px';
         dropdown.style.marginBottom = '20px';
         let options = [
+            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV4.description, value: 'honeyCannonLv4' },
             { text: EXERCISE_BOOK_OF_HONEY_CUP_LV1.description, value: 'honeyCannonLv1' },
             { text: EXERCISE_BOOK_OF_HONEY_CUP_LV2.description, value: 'honeyCannonLv2' },
             { text: EXERCISE_BOOK_OF_HONEY_CUP_LV3.description, value: 'honeyCannonLv3' },
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV4.description, value: 'honeyCannonLv4' },
             { text: EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT.description, value: 'basic_pc_root' },
             { text: EXERCISE_BOOK_OF_DPC_SZ.description, value: 'szDPC' },
             { text: EXERCISE_BOOK_OF_DPC_O.description, value: 'oDPC' }
