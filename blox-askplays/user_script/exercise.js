@@ -16,7 +16,7 @@
     // ----------------------------
     // 定数定義
     // ----------------------------
-    const exerciseBooks = {
+    const EXERCISES = {
         countOnlyMode: {
             id: 'count_only_mode',
             description: "ノーマル練習（カウント機能のみ）",
@@ -25,7 +25,7 @@
                 count: 10,
             },
             isPieceQueueShuffle: false,
-            exercise_list: [
+            board_list: [
                 {
                     pieceQueue: '',
                     mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
@@ -40,7 +40,7 @@
                 count: 2,
             },
             isPieceQueueShuffle: true,
-            exercise_list: [
+            board_list: [
                 {
                     pieceQueue: '',
                     mapCode: '00000000000000000641000000000000000066410000000000000000644100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000052200000000000000055522'
@@ -59,7 +59,7 @@
                 count: 2,
             },
             isPieceQueueShuffle: true,
-            exercise_list: [
+            board_list: [
                 {
                     pieceQueue: 'js',
                     mapCode: '00000000000000000041000000000000000000410000000000000000044100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000002200000000000000000022'
@@ -78,7 +78,7 @@
                 count: 2,
             },
             isPieceQueueShuffle: true,
-            exercise_list: [
+            board_list: [
                 {
                     pieceQueue: 'tjls',
                     mapCode: '00000000000000000001000000000000000000010000000000000000000100000000000000000001000000000000000000700000000000000000007700000000000000000007000000000000000000000000000000000000002200000000000000000022'
@@ -98,7 +98,7 @@
                 count: 2,
             },
             isPieceQueueShuffle: false,
-            exercise_list: [
+            board_list: [
                 {
                     pieceQueue: '',
                     mapCode: '00000000000000001111000000000000000052210000000000000000522100000000000000005501000000000000000000000000000000000000000700000000000000000447000000000000000006630000000000000000006200000000000000000052'
@@ -126,7 +126,7 @@
                 count: 1,
             },
             isPieceQueueShuffle: false,
-            exercise_list: [
+            board_list: [
                 {
                     pieceQueue: 's',
                     mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
@@ -145,7 +145,7 @@
                 count: 1,
             },
             isPieceQueueShuffle: false,
-            exercise_list: [
+            board_list: [
                 {
                     pieceQueue: 'o',
                     mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
@@ -160,7 +160,7 @@
                 count: 1,
             },
             isPieceQueueShuffle: false,
-            exercise_list: [
+            board_list: [
                 {
                     pieceQueue: 't',
                     mapCode: '00000000000000000444000000000000000002240000000000000000022000000000000000000555000000000000000005700000000000000000007700000000000000000007000000000000000660220000000000000000662200000000000000001111'
@@ -180,7 +180,7 @@
                 count: 1,
             },
             isPieceQueueShuffle: false,
-            exercise_list: [
+            board_list: [
                 {
                     pieceQueue: '',
                     mapCode: '00000000000000006655000000000000011116650000000000000000000500000000000000000070000000000000000000770000000000000000003700000000000000000333000000000000000002240000000000000000022400000000000000000044'
@@ -201,9 +201,8 @@
     // 変数定義
     // ----------------------------
     let g_currentGameCount = 0;
-    let g_isSimulating = false;
-    let g_exercise_book = null;
-
+    let g_isSimulatingRKey = false;
+    let g_currentExercise = null;
 
     // ----------------------------
     // 関数定義
@@ -218,16 +217,16 @@
 
     function simulateRKeyPress() {
         setTimeout(() => {
-            g_isSimulating = true;
+            g_isSimulatingRKey = true; // デフォルトの動作を行うため
             simulateKeyPress('r');
-            g_isSimulating = false;
+            g_isSimulatingRKey = false;
         }, 100); // 100ミリ秒の遅延
     }
 
 
     function updateField() {
-        let exerciseIndex = mod(g_currentGameCount, g_exercise_book.exercise_list.length);
-        const exercise = g_exercise_book.exercise_list[exerciseIndex];
+        let exerciseIndex = mod(g_currentGameCount, g_currentExercise.board_list.length);
+        const exercise = g_currentExercise.board_list[exerciseIndex];
 
         const pieceQueueElement = document.getElementById('piece-queue');
         const mapCodeElement = document.getElementById('map-code');
@@ -240,7 +239,7 @@
         }
 
         // pieceQueueをシャッフルするかどうかをチェック
-        if (g_exercise_book.isPieceQueueShuffle) {
+        if (g_currentExercise.isPieceQueueShuffle) {
             exercise.pieceQueue = shuffleString(exercise.pieceQueue);
         }
 
@@ -252,7 +251,7 @@
             console.error('win-con要素が見つかりません');
             return;
         }
-        winConElement.value = g_exercise_book.win_condition.type;
+        winConElement.value = g_currentExercise.win_condition.type;
         winConElement.dispatchEvent(event);
 
         // ・回数設定
@@ -261,7 +260,7 @@
             console.error('win-con-count要素が見つかりません');
             return;
         }
-        winConCountElement.value = g_exercise_book.win_condition.count;
+        winConCountElement.value = g_currentExercise.win_condition.count;
         winConCountElement.dispatchEvent(event);
 
 
@@ -286,7 +285,6 @@
 
 
     function initializeGameMode() {
-        console.log("initializeGameMode 1");
 
         // Create the overlay background
         let overlay = document.createElement('div');
@@ -330,7 +328,7 @@
         dropdown.style.fontSize = '16px';
         dropdown.style.marginBottom = '20px';
 
-        Object.values(exerciseBooks).forEach(book => {
+        Object.values(EXERCISES).forEach(book => {
             let opt = document.createElement('option');
             opt.value = book.id;
             opt.innerHTML = book.description;
@@ -354,7 +352,7 @@
         confirmButton.onclick = function() {
 
             let selectedValue = document.getElementById('gameModeSelector').value;
-            g_exercise_book = Object.values(exerciseBooks).find(book => book.id === selectedValue);
+            g_currentExercise = Object.values(EXERCISES).find(book => book.id === selectedValue);
 
             // Remove the selection window after a choice is made
             document.body.removeChild(overlay);
@@ -367,15 +365,12 @@
     }
 
     // ----------------------------
-    // 初期化処理
+    // イベント処理
     // ----------------------------
     window.addEventListener('load', initializeGameMode);
 
-    // ----------------------------
-    // イベント処理
-    // ----------------------------
     document.addEventListener('keydown', function(event) {
-        if (event.key === 'r' && !g_isSimulating && g_exercise_book) {
+        if (event.key === 'r' && !g_isSimulatingRKey && g_currentExercise) {
             event.preventDefault();
             incrementGameCount(1);
             updateField();
