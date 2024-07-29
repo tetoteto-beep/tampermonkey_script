@@ -191,6 +191,49 @@
         ]
     }
 
+    const EXERCISE_BOOK_OF_DPC_O_PLUS = {
+        id: 'dpc_o_plus',
+        description: "【DPC練習】o残し 妥協系",
+        win_condition: {
+            type: 1, // "0"Lines, "1"PC, "2"No Garbage
+            count: 1,
+        },
+        isPieceQueueShuffle: false,
+        pieceQueueConstraint: "",
+        exercise_list: [
+            {
+                pieceQueue: 't',
+                mapCode: '00000000000000000444000000000000000002240000000000000000022000000000000000000555000000000000000005700000000000000000007700000000000000000007000000000000000660220000000000000000662200000000000000001111'
+            },
+            {
+                pieceQueue: 't',
+                mapCode: '00000000000000001111000000000000000077220000000000000007702200000000000000000006000000000000000000660000000000000000046000000000000000000444000000000000000002200000000000000000022500000000000000000555'
+            },
+        ]
+    }
+
+
+    const EXERCISE_BOOK_OF_PC_SPIN_OK_VERSION = {
+        id: 'pc-spin',
+        description: "【PC-spin(okversion)】2巡目",
+        win_condition: {
+            type: 1, // "0"Lines, "1"PC, "2"No Garbage
+            count: 1,
+        },
+        isPieceQueueShuffle: false,
+        pieceQueueConstraint: "",
+        exercise_list: [
+            {
+                pieceQueue: '',
+                mapCode: '00000000000000006655000000000000011116650000000000000000000500000000000000000070000000000000000000770000000000000000003700000000000000000333000000000000000002240000000000000000022400000000000000000044'
+            },
+            {
+                pieceQueue: '',
+                mapCode: '00000000000000000055000000000000000002250000000000000000022500000000000000000333000000000000000000360000000000000000006600000000000000000060000000000000000000040000000000000111177400000000000000007744'
+            },
+        ]
+    }
+
     const MAP_SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
 
     const NOTIFY_USER_GAME_COUNT = 100;
@@ -341,6 +384,8 @@
             { text: EXERCISE_BOOK_OF_DPC_SZ.description, value: EXERCISE_BOOK_OF_DPC_SZ.id },
             { text: EXERCISE_BOOK_OF_DPC_O.description, value: EXERCISE_BOOK_OF_DPC_O.id },
             { text: EXERCISE_BOOK_OF_ONLY_COUNT.description, value: EXERCISE_BOOK_OF_ONLY_COUNT.id },
+            { text: EXERCISE_BOOK_OF_DPC_O_PLUS.description, value: EXERCISE_BOOK_OF_DPC_O_PLUS.id },
+            { text: EXERCISE_BOOK_OF_PC_SPIN_OK_VERSION.description, value: EXERCISE_BOOK_OF_PC_SPIN_OK_VERSION.id },
         ];
         for (let option of options) {
             let opt = document.createElement('option');
@@ -388,6 +433,12 @@
                     break;
                 case EXERCISE_BOOK_OF_ONLY_COUNT.id:
                     g_exercise_book = EXERCISE_BOOK_OF_ONLY_COUNT;
+                    break;
+                case EXERCISE_BOOK_OF_DPC_O_PLUS.id:
+                    g_exercise_book = EXERCISE_BOOK_OF_DPC_O_PLUS;
+                    break;
+                case EXERCISE_BOOK_OF_PC_SPIN_OK_VERSION.id:
+                    g_exercise_book = EXERCISE_BOOK_OF_PC_SPIN_OK_VERSION;
                     break;
                 default:
                     g_exercise_book = null;
