@@ -43,12 +43,10 @@
             exercise_list: [
                 {
                     pieceQueue: '',
-                    pieceQueueShuffleConstraint: '',
                     mapCode: '00000000000000000641000000000000000066410000000000000000644100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000052200000000000000055522'
                 },
                 {
                     pieceQueue: '',
-                    pieceQueueShuffleConstraint: '',
                     mapCode: '00000000000000044422000000000000000004220000000000000000033300000000000000000036000000000000000000660000000000000000006000000000000000000001000000000000000075510000000000000000775100000000000000000751'
                 },
             ]
@@ -64,12 +62,10 @@
             exercise_list: [
                 {
                     pieceQueue: 'js',
-                    pieceQueueShuffleConstraint: '',
                     mapCode: '00000000000000000041000000000000000000410000000000000000044100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000002200000000000000000022'
                 },
                 {
                     pieceQueue: 'lz',
-                    pieceQueueShuffleConstraint: '',
                     mapCode: '00000000000000000022000000000000000000220000000000000000033300000000000000000036000000000000000000660000000000000000006000000000000000000001000000000000000005510000000000000000005100000000000000000051'
                 },
             ]
@@ -85,38 +81,13 @@
             exercise_list: [
                 {
                     pieceQueue: 'tjls',
-                    pieceQueueShuffleConstraint: '',
                     mapCode: '00000000000000000001000000000000000000010000000000000000000100000000000000000001000000000000000000700000000000000000007700000000000000000007000000000000000000000000000000000000002200000000000000000022'
                 },
                 {
                     pieceQueue: 'tjlz',
-                    pieceQueueShuffleConstraint: '',
                     mapCode: '00000000000000000022000000000000000000220000000000000000000000000000000000000006000000000000000000660000000000000000006000000000000000000001000000000000000000010000000000000000000100000000000000000001'
                 },
 
-            ]
-        },
-        honeyCup2ndBagLv4: {
-            id: 'honey_cup_2nd_bag_lv4',
-            description: "【はちみつ砲】1巡目の練習 ※セットアップ可能なミノ順のみ",
-            win_condition: {
-                type: 0, // "0"Lines, "1"PC, "2"No Garbage
-                count: 1,
-            },
-            isPieceQueueShuffle: true,
-            exercise_list: [
-                {
-                    pieceQueue: 'toiszlj',
-                    //pieceQueueShuffleConstraint: 'i<l and l<s and z<t and o<j',
-                    pieceQueueShuffleConstraint: 'i<l and l<s and o<j',
-                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-                },
-                {
-                    pieceQueue: 'toiszlj',
-                    //pieceQueueShuffleConstraint: 'i<j and j<z and s<t and o<l',
-                    pieceQueueShuffleConstraint: 'i<j and j<z and o<l',
-                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-                },
             ]
         },
         honeyCupBasicPCRoot: {
@@ -155,7 +126,6 @@
                 count: 1,
             },
             isPieceQueueShuffle: false,
-            pieceQueueConstraint: "",
             exercise_list: [
                 {
                     pieceQueue: 's',
@@ -175,7 +145,6 @@
                 count: 1,
             },
             isPieceQueueShuffle: false,
-            pieceQueueConstraint: "",
             exercise_list: [
                 {
                     pieceQueue: 'o',
@@ -191,7 +160,6 @@
                 count: 1,
             },
             isPieceQueueShuffle: false,
-            pieceQueueConstraint: "",
             exercise_list: [
                 {
                     pieceQueue: 't',
@@ -212,7 +180,6 @@
                 count: 1,
             },
             isPieceQueueShuffle: false,
-            pieceQueueConstraint: "",
             exercise_list: [
                 {
                     pieceQueue: '',
@@ -274,16 +241,7 @@
 
         // pieceQueueをシャッフルするかどうかをチェック
         if (g_exercise_book.isPieceQueueShuffle) {
-
-            if (exercise.pieceQueueShuffleConstraint) {
-                exercise.pieceQueue = shuffleConstrainedString(exercise.pieceQueue, exercise.pieceQueueShuffleConstraint);
-                console.log(exercise.pieceQueue, "if側")
-            }
-            else {
-                exercise.pieceQueue = shuffleString(exercise.pieceQueue);
-                console.log(exercise.pieceQueue, "else側")
-            }
-
+            exercise.pieceQueue = shuffleString(exercise.pieceQueue);
         }
 
         // 勝利条件のための種別・回数を設定
@@ -412,7 +370,6 @@
     // 初期化処理
     // ----------------------------
     window.addEventListener('load', initializeGameMode);
-
 
     // ----------------------------
     // イベント処理
