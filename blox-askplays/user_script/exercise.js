@@ -13,225 +13,217 @@
 (function() {
     'use strict';
 
-    // Your code here...
-
     // ----------------------------
     // 定数定義
     // ----------------------------
-    const EXERCISE_BOOK_OF_HONEY_CUP_LV1 = {
-        id: 'honey_cup_2junme_1',
-        description: "【はちみつ砲】2巡目の練習①",
-        win_condition: {
-            type: 1, // "0"Lines, "1"PC, "2"No Garbage
-            count: 2,
+    const exerciseBooks = {
+        countOnlyMode: {
+            id: 'count_only_mode',
+            description: "ノーマル練習（カウント機能のみ）",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 10,
+            },
+            isPieceQueueShuffle: false,
+            exercise_list: [
+                {
+                    pieceQueue: '',
+                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                },
+            ]
         },
-        isPieceQueueShuffle: true,
-        exercise_list: [
-            {
-                pieceQueue: '',
-                pieceQueueShuffleConstraint: '',
-                mapCode: '00000000000000000641000000000000000066410000000000000000644100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000052200000000000000055522'
+        honeyCup2ndBagLv1: {
+            id: 'honey_cup_2nd_bag_lv1',
+            description: "【はちみつ砲】2巡目の練習①",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 2,
             },
-            {
-                pieceQueue: '',
-                pieceQueueShuffleConstraint: '',
-                mapCode: '00000000000000044422000000000000000004220000000000000000033300000000000000000036000000000000000000660000000000000000006000000000000000000001000000000000000075510000000000000000775100000000000000000751'
-            },
-        ]
-    }
-
-    const EXERCISE_BOOK_OF_HONEY_CUP_LV2 = {
-        id: 'honey_cup_2junme_2',
-        description: "【はちみつ砲】2巡目の練習②",
-        win_condition: {
-            type: 1, // "0"Lines, "1"PC, "2"No Garbage
-            count: 2,
+            isPieceQueueShuffle: true,
+            exercise_list: [
+                {
+                    pieceQueue: '',
+                    pieceQueueShuffleConstraint: '',
+                    mapCode: '00000000000000000641000000000000000066410000000000000000644100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000052200000000000000055522'
+                },
+                {
+                    pieceQueue: '',
+                    pieceQueueShuffleConstraint: '',
+                    mapCode: '00000000000000044422000000000000000004220000000000000000033300000000000000000036000000000000000000660000000000000000006000000000000000000001000000000000000075510000000000000000775100000000000000000751'
+                },
+            ]
         },
-        isPieceQueueShuffle: true,
-        exercise_list: [
-            {
-                pieceQueue: 'js',
-                pieceQueueShuffleConstraint: '',
-                mapCode: '00000000000000000041000000000000000000410000000000000000044100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000002200000000000000000022'
+        honeyCup2ndBagLv2: {
+            id: 'honey_cup_2nd_bag_lv2',
+            description: "【はちみつ砲】2巡目の練習②",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 2,
             },
-            {
-                pieceQueue: 'lz',
-                pieceQueueShuffleConstraint: '',
-                mapCode: '00000000000000000022000000000000000000220000000000000000033300000000000000000036000000000000000000660000000000000000006000000000000000000001000000000000000005510000000000000000005100000000000000000051'
-            },
-        ]
-    }
-
-    const EXERCISE_BOOK_OF_HONEY_CUP_LV3 = {
-        id: 'honey_cup_2junme_3',
-        description: "【はちみつ砲】2巡目の練習③",
-        win_condition: {
-            type: 1, // "0"Lines, "1"PC, "2"No Garbage
-            count: 2,
+            isPieceQueueShuffle: true,
+            exercise_list: [
+                {
+                    pieceQueue: 'js',
+                    pieceQueueShuffleConstraint: '',
+                    mapCode: '00000000000000000041000000000000000000410000000000000000044100000000000000000001000000000000000000700000000000000000007700000000000000000037000000000000000003330000000000000000002200000000000000000022'
+                },
+                {
+                    pieceQueue: 'lz',
+                    pieceQueueShuffleConstraint: '',
+                    mapCode: '00000000000000000022000000000000000000220000000000000000033300000000000000000036000000000000000000660000000000000000006000000000000000000001000000000000000005510000000000000000005100000000000000000051'
+                },
+            ]
         },
-        isPieceQueueShuffle: true,
-        exercise_list: [
-            {
-                pieceQueue: 'tjls',
-                pieceQueueShuffleConstraint: '',
-                mapCode: '00000000000000000001000000000000000000010000000000000000000100000000000000000001000000000000000000700000000000000000007700000000000000000007000000000000000000000000000000000000002200000000000000000022'
+        honeyCup2ndBagLv3: {
+            id: 'honey_cup_2nd_bag_lv3',
+            description: "【はちみつ砲】2巡目の練習③",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 2,
             },
-            {
-                pieceQueue: 'tjlz',
-                pieceQueueShuffleConstraint: '',
-                mapCode: '00000000000000000022000000000000000000220000000000000000000000000000000000000006000000000000000000660000000000000000006000000000000000000001000000000000000000010000000000000000000100000000000000000001'
-            },
+            isPieceQueueShuffle: true,
+            exercise_list: [
+                {
+                    pieceQueue: 'tjls',
+                    pieceQueueShuffleConstraint: '',
+                    mapCode: '00000000000000000001000000000000000000010000000000000000000100000000000000000001000000000000000000700000000000000000007700000000000000000007000000000000000000000000000000000000002200000000000000000022'
+                },
+                {
+                    pieceQueue: 'tjlz',
+                    pieceQueueShuffleConstraint: '',
+                    mapCode: '00000000000000000022000000000000000000220000000000000000000000000000000000000006000000000000000000660000000000000000006000000000000000000001000000000000000000010000000000000000000100000000000000000001'
+                },
 
-        ]
-    }
-
-    const EXERCISE_BOOK_OF_HONEY_CUP_LV4 = {// 初手から。ただし、ホールドなしではちみつ砲が組めるツモのみ。
-        id: 'honey_cup_2junme_4',
-        description: "【はちみつ砲】1巡目の練習 ※セットアップ可能なミノ順のみ",
-        win_condition: {
-            type: 0, // "0"Lines, "1"PC, "2"No Garbage
-            count: 1,
+            ]
         },
-        isPieceQueueShuffle: true,
-        exercise_list: [
-            {
-                pieceQueue: 'toiszlj',
-                //pieceQueueShuffleConstraint: 'i<l and l<s and z<t and o<j',
-                pieceQueueShuffleConstraint: 'i<l and l<s and o<j',
-                mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        honeyCup2ndBagLv4: {
+            id: 'honey_cup_2nd_bag_lv4',
+            description: "【はちみつ砲】1巡目の練習 ※セットアップ可能なミノ順のみ",
+            win_condition: {
+                type: 0, // "0"Lines, "1"PC, "2"No Garbage
+                count: 1,
             },
-            {
-                pieceQueue: 'toiszlj',
-                //pieceQueueShuffleConstraint: 'i<j and j<z and s<t and o<l',
-                pieceQueueShuffleConstraint: 'i<j and j<z and o<l',
-                mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-            },
-        ]
-    }
-
-    const EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT = {
-        id: 'honey_cup_basic_pc_root',
-        description: "【はちみつ砲】3巡目 基本形 PCルートの練習",
-        win_condition: {
-            type: 1, // "0"Lines, "1"PC, "2"No Garbage
-            count: 2,
+            isPieceQueueShuffle: true,
+            exercise_list: [
+                {
+                    pieceQueue: 'toiszlj',
+                    //pieceQueueShuffleConstraint: 'i<l and l<s and z<t and o<j',
+                    pieceQueueShuffleConstraint: 'i<l and l<s and o<j',
+                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                },
+                {
+                    pieceQueue: 'toiszlj',
+                    //pieceQueueShuffleConstraint: 'i<j and j<z and s<t and o<l',
+                    pieceQueueShuffleConstraint: 'i<j and j<z and o<l',
+                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                },
+            ]
         },
-        isPieceQueueShuffle: false,
-        exercise_list: [
-            {
-                pieceQueue: '',
-                mapCode: '00000000000000001111000000000000000052210000000000000000522100000000000000005501000000000000000000000000000000000000000700000000000000000447000000000000000006630000000000000000006200000000000000000052'
+        honeyCupBasicPCRoot: {
+            id: 'honey_cup_basic_pc_root',
+            description: "【はちみつ砲】3巡目 基本形 PCルートの練習",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 2,
             },
-            {
-                pieceQueue: '',
-                mapCode: '00000000000000000042000000000000000000220000000000000000042300000000000000000446000000000000000000060000000000000000000000000000000000005701000000000000000057710000000000000000557100000000000000001111'
-            },
-            {
-                pieceQueue: '',
-                mapCode: '00000000000000001111000000000000000044610000000000000000466100000000000000004601000000000000000000000000000000000000000700000000000000000557000000000000000005230000000000000000002200000000000000000052'
-            },
-            {
-                pieceQueue: '',
-                mapCode: '00000000000000000042000000000000000000720000000000000000077300000000000000000556000000000000000000060000000000000000000000000000000000004401000000000000000042210000000000000000422100000000000000001111'
-            },
-        ]
-    }
-
-    const EXERCISE_BOOK_OF_ONLY_COUNT = {
-        id: 'only_count_mode',
-        description: "ノーマル練習（カウント機能のみ）",
-        win_condition: {
-            type: 1, // "0"Lines, "1"PC, "2"No Garbage
-            count: 10,
+            isPieceQueueShuffle: false,
+            exercise_list: [
+                {
+                    pieceQueue: '',
+                    mapCode: '00000000000000001111000000000000000052210000000000000000522100000000000000005501000000000000000000000000000000000000000700000000000000000447000000000000000006630000000000000000006200000000000000000052'
+                },
+                {
+                    pieceQueue: '',
+                    mapCode: '00000000000000000042000000000000000000220000000000000000042300000000000000000446000000000000000000060000000000000000000000000000000000005701000000000000000057710000000000000000557100000000000000001111'
+                },
+                {
+                    pieceQueue: '',
+                    mapCode: '00000000000000001111000000000000000044610000000000000000466100000000000000004601000000000000000000000000000000000000000700000000000000000557000000000000000005230000000000000000002200000000000000000052'
+                },
+                {
+                    pieceQueue: '',
+                    mapCode: '00000000000000000042000000000000000000720000000000000000077300000000000000000556000000000000000000060000000000000000000000000000000000004401000000000000000042210000000000000000422100000000000000001111'
+                },
+            ]
         },
-        isPieceQueueShuffle: false,
-        exercise_list: [
-            {
-                pieceQueue: '',
-                mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-            },
-        ]
-    }
 
-    const EXERCISE_BOOK_OF_DPC_SZ = {
-        id: 'dpc_sz',
-        description: "【DPC練習】s/z残し",
-        win_condition: {
-            type: 1, // "0"Lines, "1"PC, "2"No Garbage
-            count: 1,
+        honeyCupDPCMinoSZ: {
+            id: 'dpc_sz',
+            description: "【DPC練習】s/z残し",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 1,
+            },
+            isPieceQueueShuffle: false,
+            pieceQueueConstraint: "",
+            exercise_list: [
+                {
+                    pieceQueue: 's',
+                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                },
+                {
+                    pieceQueue: 'z',
+                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                },
+            ]
         },
-        isPieceQueueShuffle: false,
-        pieceQueueConstraint: "",
-        exercise_list: [
-            {
-                pieceQueue: 's',
-                mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        honeyCupDPCMinoO: {
+            id: 'dpc_o',
+            description: "【DPC練習】o残し",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 1,
             },
-            {
-                pieceQueue: 'z',
-                mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-            },
-        ]
-    }
-
-    const EXERCISE_BOOK_OF_DPC_O = {
-        id: 'dpc_o',
-        description: "【DPC練習】o残し",
-        win_condition: {
-            type: 1, // "0"Lines, "1"PC, "2"No Garbage
-            count: 1,
+            isPieceQueueShuffle: false,
+            pieceQueueConstraint: "",
+            exercise_list: [
+                {
+                    pieceQueue: 'o',
+                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                },
+            ]
         },
-        isPieceQueueShuffle: false,
-        pieceQueueConstraint: "",
-        exercise_list: [
-            {
-                pieceQueue: 'o',
-                mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+        honeyCupDPCMinoOCompromiseRoot: {
+            id: 'dpc_o_compromise_root',
+            description: "【DPC練習】o残し 妥協系",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 1,
             },
-        ]
-    }
-
-    const EXERCISE_BOOK_OF_DPC_O_PLUS = {
-        id: 'dpc_o_plus',
-        description: "【DPC練習】o残し 妥協系",
-        win_condition: {
-            type: 1, // "0"Lines, "1"PC, "2"No Garbage
-            count: 1,
+            isPieceQueueShuffle: false,
+            pieceQueueConstraint: "",
+            exercise_list: [
+                {
+                    pieceQueue: 't',
+                    mapCode: '00000000000000000444000000000000000002240000000000000000022000000000000000000555000000000000000005700000000000000000007700000000000000000007000000000000000660220000000000000000662200000000000000001111'
+                },
+                {
+                    pieceQueue: 't',
+                    mapCode: '00000000000000001111000000000000000077220000000000000007702200000000000000000006000000000000000000660000000000000000046000000000000000000444000000000000000002200000000000000000022500000000000000000555'
+                },
+            ]
         },
-        isPieceQueueShuffle: false,
-        pieceQueueConstraint: "",
-        exercise_list: [
-            {
-                pieceQueue: 't',
-                mapCode: '00000000000000000444000000000000000002240000000000000000022000000000000000000555000000000000000005700000000000000000007700000000000000000007000000000000000660220000000000000000662200000000000000001111'
-            },
-            {
-                pieceQueue: 't',
-                mapCode: '00000000000000001111000000000000000077220000000000000007702200000000000000000006000000000000000000660000000000000000046000000000000000000444000000000000000002200000000000000000022500000000000000000555'
-            },
-        ]
-    }
 
-
-    const EXERCISE_BOOK_OF_PC_SPIN_OK_VERSION = {
-        id: 'pc-spin',
-        description: "【PC-spin(okversion)】2巡目",
-        win_condition: {
-            type: 1, // "0"Lines, "1"PC, "2"No Garbage
-            count: 1,
-        },
-        isPieceQueueShuffle: false,
-        pieceQueueConstraint: "",
-        exercise_list: [
-            {
-                pieceQueue: '',
-                mapCode: '00000000000000006655000000000000011116650000000000000000000500000000000000000070000000000000000000770000000000000000003700000000000000000333000000000000000002240000000000000000022400000000000000000044'
+        honeyCupPCSpin2ndBag: {
+            id: 'pc-spin-2nd-bag',
+            description: "【PC-spin(okversion)】2巡目",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 1,
             },
-            {
-                pieceQueue: '',
-                mapCode: '00000000000000000055000000000000000002250000000000000000022500000000000000000333000000000000000000360000000000000000006600000000000000000060000000000000000000040000000000000111177400000000000000007744'
-            },
-        ]
+            isPieceQueueShuffle: false,
+            pieceQueueConstraint: "",
+            exercise_list: [
+                {
+                    pieceQueue: '',
+                    mapCode: '00000000000000006655000000000000011116650000000000000000000500000000000000000070000000000000000000770000000000000000003700000000000000000333000000000000000002240000000000000000022400000000000000000044'
+                },
+                {
+                    pieceQueue: '',
+                    mapCode: '00000000000000000055000000000000000002250000000000000000022500000000000000000333000000000000000000360000000000000000006600000000000000000060000000000000000000040000000000000111177400000000000000007744'
+                },
+            ]
+        }
     }
 
     const MAP_SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
@@ -243,7 +235,7 @@
     // ----------------------------
     let g_currentGameCount = 0;
     let g_isSimulating = false;
-    let g_exercise_book = null
+    let g_exercise_book = null;
 
 
     // ----------------------------
@@ -264,6 +256,7 @@
             g_isSimulating = false;
         }, 100); // 100ミリ秒の遅延
     }
+
 
     function updateField() {
         let exerciseIndex = mod(g_currentGameCount, g_exercise_book.exercise_list.length);
@@ -290,13 +283,37 @@
                 exercise.pieceQueue = shuffleString(exercise.pieceQueue);
                 console.log(exercise.pieceQueue, "else側")
             }
-            
+
         }
 
+        // 勝利条件のための種別・回数を設定
+        // ・種別設定
+        const event = new Event("change");
+        const winConElement = document.getElementById("win-con");
+        if (!winConElement) {
+            console.error('win-con要素が見つかりません');
+            return;
+        }
+        winConElement.value = g_exercise_book.win_condition.type;
+        winConElement.dispatchEvent(event);
+
+        // ・回数設定
+        const winConCountElement = document.getElementById("win-con-count");
+        if (!winConCountElement) {
+            console.error('win-con-count要素が見つかりません');
+            return;
+        }
+        winConCountElement.value = g_exercise_book.win_condition.count;
+        winConCountElement.dispatchEvent(event);
+
+
+        // ネクスト、画面、シード値を設定したのち、LoadMapボタンを押下し画面を更新
         pieceQueueElement.value = exercise.pieceQueue;
         mapCodeElement.value = exercise.mapCode;
-        mapSeedElement.value = g_currentGameCount + "_" + MAP_SEED_SUFFIX;
+        mapSeedElement.value = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
         loadMapElement.click();
+
+
     }
 
     function incrementGameCount(n) {
@@ -309,27 +326,6 @@
 
     }
 
-    function initializeWinConditions() {
-        const winCondition = g_exercise_book.win_condition;
-
-        const event = new Event("change");
-
-        const winConElement = document.getElementById("win-con");
-        if (!winConElement) {
-            console.error('win-con要素が見つかりません');
-            return;
-        }
-        winConElement.value = winCondition.type; // "0"Lines, "1"PC, "2"No Garbage
-        winConElement.dispatchEvent(event);
-
-        const winConCountElement = document.getElementById("win-con-count");
-        if (!winConCountElement) {
-            console.error('win-con-count要素が見つかりません');
-            return;
-        }
-        winConCountElement.value = winCondition.count;
-        winConCountElement.dispatchEvent(event);
-    }
 
     function initializeGameMode() {
         console.log("initializeGameMode 1");
@@ -343,7 +339,7 @@
         overlay.style.height = '100%';
         overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
         overlay.style.zIndex = '999';
-        overlay.style.pointerEvents = 'auto'; // イベントをキャッチできるようにする
+        overlay.style.pointerEvents = 'auto';
         document.body.appendChild(overlay);
 
         // Create the selection window
@@ -357,7 +353,7 @@
         selectionWindow.style.borderRadius = '10px';
         selectionWindow.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
         selectionWindow.style.zIndex = '1000';
-        overlay.style.pointerEvents = 'auto'; // イベントをキャッチできるようにする
+        overlay.style.pointerEvents = 'auto';
         document.body.appendChild(selectionWindow);
 
         // Create the title
@@ -375,25 +371,16 @@
         dropdown.style.padding = '10px';
         dropdown.style.fontSize = '16px';
         dropdown.style.marginBottom = '20px';
-        let options = [
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV4.description, value: EXERCISE_BOOK_OF_HONEY_CUP_LV4.id },
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV1.description, value: EXERCISE_BOOK_OF_HONEY_CUP_LV1.id },
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV2.description, value: EXERCISE_BOOK_OF_HONEY_CUP_LV2.id },
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_LV3.description, value: EXERCISE_BOOK_OF_HONEY_CUP_LV3.id },
-            { text: EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT.description, value: EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT.id },
-            { text: EXERCISE_BOOK_OF_DPC_SZ.description, value: EXERCISE_BOOK_OF_DPC_SZ.id },
-            { text: EXERCISE_BOOK_OF_DPC_O.description, value: EXERCISE_BOOK_OF_DPC_O.id },
-            { text: EXERCISE_BOOK_OF_ONLY_COUNT.description, value: EXERCISE_BOOK_OF_ONLY_COUNT.id },
-            { text: EXERCISE_BOOK_OF_DPC_O_PLUS.description, value: EXERCISE_BOOK_OF_DPC_O_PLUS.id },
-            { text: EXERCISE_BOOK_OF_PC_SPIN_OK_VERSION.description, value: EXERCISE_BOOK_OF_PC_SPIN_OK_VERSION.id },
-        ];
-        for (let option of options) {
+
+        Object.values(exerciseBooks).forEach(book => {
             let opt = document.createElement('option');
-            opt.value = option.value;
-            opt.innerHTML = option.text;
+            opt.value = book.id;
+            opt.innerHTML = book.description;
             dropdown.appendChild(opt);
-        }
+        });
+
         selectionWindow.appendChild(dropdown);
+
 
         // Create the confirm button
         let confirmButton = document.createElement('button');
@@ -409,48 +396,13 @@
         confirmButton.onclick = function() {
 
             let selectedValue = document.getElementById('gameModeSelector').value;
-            switch (selectedValue) {
-                case EXERCISE_BOOK_OF_HONEY_CUP_LV1.id:
-                    g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_LV1;
-                    break;
-                case EXERCISE_BOOK_OF_HONEY_CUP_LV2.id:
-                    g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_LV2;
-                    break;
-                case EXERCISE_BOOK_OF_HONEY_CUP_LV3.id:
-                    g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_LV3;
-                    break;
-                case EXERCISE_BOOK_OF_HONEY_CUP_LV4.id:
-                    g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_LV4;
-                    break;
-                case EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT.id:
-                    g_exercise_book = EXERCISE_BOOK_OF_HONEY_CUP_BASIC_PC_ROOT;
-                    break;
-                case EXERCISE_BOOK_OF_DPC_SZ.id:
-                    g_exercise_book = EXERCISE_BOOK_OF_DPC_SZ;
-                    break;
-                case EXERCISE_BOOK_OF_DPC_O.id:
-                    g_exercise_book = EXERCISE_BOOK_OF_DPC_O;
-                    break;
-                case EXERCISE_BOOK_OF_ONLY_COUNT.id:
-                    g_exercise_book = EXERCISE_BOOK_OF_ONLY_COUNT;
-                    break;
-                case EXERCISE_BOOK_OF_DPC_O_PLUS.id:
-                    g_exercise_book = EXERCISE_BOOK_OF_DPC_O_PLUS;
-                    break;
-                case EXERCISE_BOOK_OF_PC_SPIN_OK_VERSION.id:
-                    g_exercise_book = EXERCISE_BOOK_OF_PC_SPIN_OK_VERSION;
-                    break;
-                default:
-                    g_exercise_book = null;
-            }
+            g_exercise_book = Object.values(exerciseBooks).find(book => book.id === selectedValue);
 
             // Remove the selection window after a choice is made
             document.body.removeChild(overlay);
             document.body.removeChild(selectionWindow);
 
-            console.log("initializeGameMode 10")
-            initializeWinConditions();
-
+            updateField();
         };
         selectionWindow.appendChild(confirmButton);
 
@@ -459,8 +411,8 @@
     // ----------------------------
     // 初期化処理
     // ----------------------------
-    initializeGameMode();
-    //initializeWinConditions();
+    window.addEventListener('load', initializeGameMode);
+
 
     // ----------------------------
     // イベント処理
@@ -479,7 +431,5 @@
             simulateRKeyPress();
         }
     });
-
-
 
 })();
