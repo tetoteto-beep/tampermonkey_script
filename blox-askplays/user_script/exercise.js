@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         テトリス 練習
 // @namespace    http://tampermonkey.net/
-// @version      2024-07-29
+// @version      2024-07-30
 // @description  try to take over the world!
 // @author       author
 // @match        https://blox.askplays.com/map-maker
@@ -12,10 +12,10 @@
 
 (function() {
     'use strict';
+    console.log("念のため更新を確認するためのdebug。0730-2")
 
-    // ----------------------------
-    // 定数定義
-    // ----------------------------
+    // Constants
+    const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
     const EXERCISES = {
         countOnlyMode: {
             id: 'count_only_mode',
@@ -28,7 +28,7 @@
             board_list: [
                 {
                     pieceQueue: '',
-                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                    mapCode: MAP_CODE_DEFAULT
                 },
             ]
         },
@@ -129,11 +129,11 @@
             board_list: [
                 {
                     pieceQueue: 's',
-                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                    mapCode: MAP_CODE_DEFAULT
                 },
                 {
                     pieceQueue: 'z',
-                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                    mapCode: MAP_CODE_DEFAULT
                 },
             ]
         },
@@ -148,7 +148,7 @@
             board_list: [
                 {
                     pieceQueue: 'o',
-                    mapCode: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                    mapCode: MAP_CODE_DEFAULT
                 },
             ]
         },
@@ -211,85 +211,67 @@
             ]
         }
     }
-
     const MAP_SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
-
     const NOTIFY_USER_GAME_COUNT = 100;
+    const SIMULATE_KEY_PRESS_DELAY = 100; // milliseconds
+    const DOM_ELEMENT_IDS = ['piece-queue', 'map-code', 'map-seed', 'load-map', 'win-con', 'win-con-count'];
 
-    // ----------------------------
-    // 変数定義
-    // ----------------------------
+    // Global Variables
     let g_currentGameCount = 0;
     let g_isSimulatingRKey = false;
     let g_currentExercise = null;
+    let g_domElements = {};
 
-    // ----------------------------
-    // 関数定義
-    // ----------------------------
-    function notifyUser(gameCount) {
-        // コンソール出力
-        console.log(`Game count reached ${gameCount}, which is a multiple of ${NOTIFY_USER_GAME_COUNT}!`);
-
-        // アラートダイアログ
-        alert(`Game count reached ${gameCount}, which is a multiple of ${NOTIFY_USER_GAME_COUNT}!`);
+    // Function to get DOM elements
+    function getDomElements() {
+        DOM_ELEMENT_IDS.forEach(id => {
+            g_domElements[id] = document.getElementById(id);
+        });
     }
 
+    // Function to check DOM elements
+    function checkDomElements() {
+        for (let id of DOM_ELEMENT_IDS) {
+            if (!g_domElements[id]) {
+                console.error(`${id} element not found`);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Function to simulate 'r' key press
     function simulateRKeyPress() {
         setTimeout(() => {
-            g_isSimulatingRKey = true; // デフォルトの動作を行うため
+            g_isSimulatingRKey = true;
             simulateKeyPress('r');
             g_isSimulatingRKey = false;
-        }, 100); // 100ミリ秒の遅延
+        }, SIMULATE_KEY_PRESS_DELAY);
     }
 
-
+    // Function to update the field
     function updateField() {
-        let exerciseIndex = mod(g_currentGameCount, g_currentExercise.board_list.length);
+        if (!checkDomElements()) return;
+
+        let exerciseIndex = g_currentGameCount % g_currentExercise.board_list.length;
         const exercise = g_currentExercise.board_list[exerciseIndex];
 
-        const pieceQueueElement = document.getElementById('piece-queue');
-        const mapCodeElement = document.getElementById('map-code');
-        const mapSeedElement = document.getElementById('map-seed');
-        const loadMapElement = document.getElementById('load-map');
-
-        if (!pieceQueueElement || !mapCodeElement || !mapSeedElement || !loadMapElement) {
-            console.error('必要なDOM要素が見つかりません');
-            return;
-        }
-
-        // pieceQueueをシャッフルするかどうかをチェック
         if (g_currentExercise.isPieceQueueShuffle) {
             exercise.pieceQueue = shuffleString(exercise.pieceQueue);
         }
 
-        // 勝利条件のための種別・回数を設定
-        // ・種別設定
         const event = new Event("change");
-        const winConElement = document.getElementById("win-con");
-        if (!winConElement) {
-            console.error('win-con要素が見つかりません');
-            return;
-        }
-        winConElement.value = g_currentExercise.win_condition.type;
-        winConElement.dispatchEvent(event);
 
-        // ・回数設定
-        const winConCountElement = document.getElementById("win-con-count");
-        if (!winConCountElement) {
-            console.error('win-con-count要素が見つかりません');
-            return;
-        }
-        winConCountElement.value = g_currentExercise.win_condition.count;
-        winConCountElement.dispatchEvent(event);
+        g_domElements['win-con'].value = g_currentExercise.win_condition.type;
+        g_domElements['win-con'].dispatchEvent(event);
 
+        g_domElements['win-con-count'].value = g_currentExercise.win_condition.count;
+        g_domElements['win-con-count'].dispatchEvent(event);
 
-        // ネクスト、画面、シード値を設定したのち、LoadMapボタンを押下し画面を更新
-        pieceQueueElement.value = exercise.pieceQueue;
-        mapCodeElement.value = exercise.mapCode;
-        mapSeedElement.value = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
-        loadMapElement.click();
-
-
+        g_domElements['piece-queue'].value = exercise.pieceQueue;
+        g_domElements['map-code'].value = exercise.mapCode;
+        g_domElements['map-seed'].value = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
+        g_domElements['load-map'].click();
     }
 
     function incrementGameCount(n) {
@@ -302,10 +284,13 @@
 
     }
 
+    // notifications.js
+    function notifyUser(gameCount) {
+        console.log(`Game count reached ${gameCount}, which is a multiple of ${NOTIFY_USER_GAME_COUNT}!`);
+        alert(`Game count reached ${gameCount}, which is a multiple of ${NOTIFY_USER_GAME_COUNT}!`);
+    }
 
-    function initializeGameMode() {
-
-        // Create the overlay background
+    function createOverlay() {
         let overlay = document.createElement('div');
         overlay.style.position = 'fixed';
         overlay.style.top = '0';
@@ -316,8 +301,10 @@
         overlay.style.zIndex = '999';
         overlay.style.pointerEvents = 'auto';
         document.body.appendChild(overlay);
+        return overlay;
+    }
 
-        // Create the selection window
+    function createSelectionWindow(overlay) {
         let selectionWindow = document.createElement('div');
         selectionWindow.style.position = 'fixed';
         selectionWindow.style.top = '50%';
@@ -330,16 +317,19 @@
         selectionWindow.style.zIndex = '1000';
         overlay.style.pointerEvents = 'auto';
         document.body.appendChild(selectionWindow);
+        return selectionWindow;
+    }
 
-        // Create the title
+    function createTitle(selectionWindow) {
         let title = document.createElement('h2');
         title.innerHTML = 'ゲームを選択してください';
         title.style.marginBottom = '20px';
         title.style.textAlign = 'center';
         title.style.color = '#000';
         selectionWindow.appendChild(title);
+    }
 
-        // Create the dropdown menu
+    function createDropdown(selectionWindow) {
         let dropdown = document.createElement('select');
         dropdown.id = 'gameModeSelector';
         dropdown.style.width = '100%';
@@ -355,9 +345,9 @@
         });
 
         selectionWindow.appendChild(dropdown);
+    }
 
-
-        // Create the confirm button
+    function createConfirmButton(selectionWindow, overlay) {
         let confirmButton = document.createElement('button');
         confirmButton.innerHTML = '決定';
         confirmButton.style.width = '100%';
@@ -369,23 +359,27 @@
         confirmButton.style.borderRadius = '5px';
         confirmButton.style.cursor = 'pointer';
         confirmButton.onclick = function() {
-
             let selectedValue = document.getElementById('gameModeSelector').value;
             g_currentExercise = Object.values(EXERCISES).find(book => book.id === selectedValue);
 
-            // Remove the selection window after a choice is made
             document.body.removeChild(overlay);
             document.body.removeChild(selectionWindow);
 
             updateField();
         };
         selectionWindow.appendChild(confirmButton);
-
     }
 
-    // ----------------------------
-    // イベント処理
-    // ----------------------------
+    function initializeGameMode() {
+        getDomElements();
+        let overlay = createOverlay();
+        let selectionWindow = createSelectionWindow(overlay);
+        createTitle(selectionWindow);
+        createDropdown(selectionWindow);
+        createConfirmButton(selectionWindow, overlay);
+    }
+
+    // Main Event
     window.addEventListener('load', initializeGameMode);
 
     document.addEventListener('keydown', function(event) {
