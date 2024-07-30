@@ -6,13 +6,13 @@
 // @author       author
 // @match        https://blox.askplays.com/map-maker
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-// @require      https://raw.githubusercontent.com/tetoteto-beep/tampermonkey_script/main/blox-askplays/lib/utility.js
+// @require      https://raw.githubusercontent.com/tetoteto-beep/tampermonkey_script/main/blox-askplays/lib/utility.ts
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
-    console.log("念のため更新を確認するためのdebug。0730-2")
+    console.log("念のため更新を確認するためのdebug。0730-6")
 
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
