@@ -12,7 +12,7 @@
 
 (function() {
     'use strict';
-    console.log("念のため更新を確認するためのdebug。0730-10")
+    console.log("念のため更新を確認するためのdebug。0730-13")
 
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
@@ -408,7 +408,7 @@
         selectionWindow.appendChild(confirmButton);
     }
 
-    function initializeGameMode() {
+    function selectGameMode() {
         getDomElements();
         let overlay = createOverlay();
         let selectionWindow = createSelectionWindow(overlay);
@@ -418,7 +418,7 @@
     }
 
     // Main Event
-    window.addEventListener('load', initializeGameMode);
+    window.addEventListener('load', selectGameMode);
 
     document.addEventListener('keydown', function(event) {
         if (event.key === 'r' && !g_isSimulatingRKey && g_currentExercise) {
