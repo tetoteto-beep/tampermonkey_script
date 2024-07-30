@@ -6,8 +6,8 @@
  * @example
  * simulateKeyPress('a');
  */
-function simulateKeyPress(key: string): void {
-    const keyEventInit: KeyboardEventInit = {
+function simulateKeyPress(key) {
+    const keyEventInit = {
         key: key,
         code: `Key${key.toUpperCase()}`,
         keyCode: key.toUpperCase().charCodeAt(0),
@@ -30,8 +30,8 @@ function simulateKeyPress(key: string): void {
  * // 出力例: 'cba'
  * console.log(shuffleString('abc'));
  */
-function shuffleString(str: string): string {
-    const arr: string[] = str.split('');
+function shuffleString(str) {
+    const arr = str.split('');
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
