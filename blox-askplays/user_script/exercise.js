@@ -12,7 +12,7 @@
 
 (function() {
     'use strict';
-    console.log("念のため更新を確認するためのdebug。0730-7")
+    console.log("念のため更新を確認するためのdebug。0730-10")
 
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
@@ -222,14 +222,19 @@
     let g_currentExercise = null;
     let g_domElements = {};
 
-    // Function to get DOM elements
+    /**
+     * Retrieve DOM elements and store them in the global variable g_domElements.
+     */
     function getDomElements() {
         DOM_ELEMENT_IDS.forEach(id => {
             g_domElements[id] = document.getElementById(id);
         });
     }
 
-    // Function to check DOM elements
+    /**
+     * Check if all necessary DOM elements have been retrieved successfully.
+     * @returns {boolean} - Returns true if all elements are found, otherwise false.
+     */
     function checkDomElements() {
         for (let id of DOM_ELEMENT_IDS) {
             if (!g_domElements[id]) {
@@ -240,7 +245,9 @@
         return true;
     }
 
-    // Function to simulate 'r' key press
+    /**
+     * Simulate pressing the 'r' key with a delay.
+     */
     function simulateRKeyPress() {
         setTimeout(() => {
             g_isSimulatingRKey = true;
@@ -249,7 +256,9 @@
         }, SIMULATE_KEY_PRESS_DELAY);
     }
 
-    // Function to update the field
+    /**
+     * Update the field based on the current exercise and game count.
+     */
     function updateField() {
         if (!checkDomElements()) return;
 
@@ -274,22 +283,32 @@
         g_domElements['load-map'].click();
     }
 
+    /**
+     * Increment the game count and notify the user if the count reaches a multiple of NOTIFY_USER_GAME_COUNT.
+     * @param {number} n - The number to increment the game count by.
+     */
     function incrementGameCount(n) {
         g_currentGameCount = Math.max(g_currentGameCount + n, 1);
 
-        let completedGameCount = g_currentGameCount - 1
+        let completedGameCount = g_currentGameCount - 1;
         if ((n>=0) && (completedGameCount % NOTIFY_USER_GAME_COUNT === 0) && (completedGameCount >= NOTIFY_USER_GAME_COUNT)) {
             notifyUser(completedGameCount);
         }
-
     }
 
-    // notifications.js
+    /**
+     * Notify the user when the game count reaches a specified number.
+     * @param {number} gameCount - The current game count.
+     */
     function notifyUser(gameCount) {
         console.log(`Game count reached ${gameCount}, which is a multiple of ${NOTIFY_USER_GAME_COUNT}!`);
         alert(`Game count reached ${gameCount}, which is a multiple of ${NOTIFY_USER_GAME_COUNT}!`);
     }
 
+    /**
+     * Create an overlay to prevent interaction with the rest of the page.
+     * @returns {HTMLDivElement} - The created overlay element.
+     */
     function createOverlay() {
         let overlay = document.createElement('div');
         overlay.style.position = 'fixed';
@@ -304,6 +323,11 @@
         return overlay;
     }
 
+    /**
+     * Create a selection window for choosing the exercise mode.
+     * @param {HTMLDivElement} overlay - The overlay element to append the window to.
+     * @returns {HTMLDivElement} - The created selection window element.
+     */
     function createSelectionWindow(overlay) {
         let selectionWindow = document.createElement('div');
         selectionWindow.style.position = 'fixed';
@@ -320,6 +344,10 @@
         return selectionWindow;
     }
 
+    /**
+     * Create a title element for the selection window.
+     * @param {HTMLDivElement} selectionWindow - The selection window element to append the title to.
+     */
     function createTitle(selectionWindow) {
         let title = document.createElement('h2');
         title.innerHTML = 'ゲームを選択してください';
@@ -329,6 +357,10 @@
         selectionWindow.appendChild(title);
     }
 
+    /**
+     * Create a dropdown menu for selecting the game mode.
+     * @param {HTMLDivElement} selectionWindow - The selection window element to append the dropdown to.
+     */
     function createDropdown(selectionWindow) {
         let dropdown = document.createElement('select');
         dropdown.id = 'gameModeSelector';
@@ -347,6 +379,11 @@
         selectionWindow.appendChild(dropdown);
     }
 
+    /**
+     * Create a confirm button to finalize the game mode selection.
+     * @param {HTMLDivElement} selectionWindow - The selection window element to append the button to.
+     * @param {HTMLDivElement} overlay - The overlay element to remove after selection.
+     */
     function createConfirmButton(selectionWindow, overlay) {
         let confirmButton = document.createElement('button');
         confirmButton.innerHTML = '決定';
@@ -358,15 +395,16 @@
         confirmButton.style.border = 'none';
         confirmButton.style.borderRadius = '5px';
         confirmButton.style.cursor = 'pointer';
+
         confirmButton.onclick = function() {
             let selectedValue = document.getElementById('gameModeSelector').value;
             g_currentExercise = Object.values(EXERCISES).find(book => book.id === selectedValue);
-
             document.body.removeChild(overlay);
             document.body.removeChild(selectionWindow);
 
             updateField();
         };
+
         selectionWindow.appendChild(confirmButton);
     }
 
