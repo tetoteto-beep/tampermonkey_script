@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         はちみつ砲 練習
+// @name         テトリス 練習
 // @namespace    http://tampermonkey.net/
-// @version      2024-07-19
+// @version      2024-07-29
 // @description  try to take over the world!
 // @author       author
 // @match        https://blox.askplays.com/map-maker
@@ -172,7 +172,7 @@
             ]
         },
 
-        honeyCupPCSpin2ndBag: {
+        pcSpin2ndBag: {
             id: 'pc-spin-2nd-bag',
             description: "【PC-spin(okversion)】2巡目",
             win_condition: {
@@ -188,6 +188,25 @@
                 {
                     pieceQueue: '',
                     mapCode: '00000000000000000055000000000000000002250000000000000000022500000000000000000333000000000000000000360000000000000000006600000000000000000060000000000000000000040000000000000111177400000000000000007744'
+                },
+            ]
+        },
+        pcSpin3ndPCBag: {
+            id: 'pc-spin-3nd-pc-bag',
+            description: "【PC-spin(okversion)】3巡目PCの練習",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 2,
+            },
+            isPieceQueueShuffle: false,
+            board_list: [
+                {
+                    pieceQueue: 't',
+                    mapCode: '00000000000011116655000000000000411116650000000000004440000500000000000000007070000000000000000077770000000000000000673700000000000000066333000000000000000652240000000000000022522400000000000000225544'
+                },
+                {
+                    pieceQueue: 't',
+                    mapCode: '00000000000000224455000000000000002242250000000000000007422500000000000000077333000000000000000076360000000000000000666600000000000000006060000000000000555000040000000000005111177400000000000011117744'
                 },
             ]
         }
