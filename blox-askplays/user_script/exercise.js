@@ -14,10 +14,11 @@
     'use strict';
     console.log("念のため更新を確認するためのdebug。0730-13")
 
+
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
-    const EXERCISES = {
-        countOnlyMode: {
+    const EXERCISES = new Set([
+        {
             id: 'count_only_mode',
             description: "ノーマル練習（カウント機能のみ）",
             win_condition: {
@@ -32,7 +33,7 @@
                 },
             ]
         },
-        honeyCup2ndBagLv1: {
+        {
             id: 'honey_cup_2nd_bag_lv1',
             description: "【はちみつ砲】2巡目の練習①",
             win_condition: {
@@ -51,7 +52,7 @@
                 },
             ]
         },
-        honeyCup2ndBagLv2: {
+        {
             id: 'honey_cup_2nd_bag_lv2',
             description: "【はちみつ砲】2巡目の練習②",
             win_condition: {
@@ -70,7 +71,7 @@
                 },
             ]
         },
-        honeyCup2ndBagLv3: {
+        {
             id: 'honey_cup_2nd_bag_lv3',
             description: "【はちみつ砲】2巡目の練習③",
             win_condition: {
@@ -90,7 +91,7 @@
 
             ]
         },
-        honeyCupBasicPCRoot: {
+        {
             id: 'honey_cup_basic_pc_root',
             description: "【はちみつ砲】3巡目 基本形 PCルートの練習",
             win_condition: {
@@ -117,8 +118,7 @@
                 },
             ]
         },
-
-        honeyCupDPCMinoSZ: {
+        {
             id: 'dpc_sz',
             description: "【DPC練習】s/z残し",
             win_condition: {
@@ -137,7 +137,7 @@
                 },
             ]
         },
-        honeyCupDPCMinoO: {
+        {
             id: 'dpc_o',
             description: "【DPC練習】o残し",
             win_condition: {
@@ -152,7 +152,7 @@
                 },
             ]
         },
-        honeyCupDPCMinoOCompromiseRoot: {
+        {
             id: 'dpc_o_compromise_root',
             description: "【DPC練習】o残し 妥協系",
             win_condition: {
@@ -171,8 +171,7 @@
                 },
             ]
         },
-
-        pcSpin2ndBag: {
+        {
             id: 'pc-spin-2nd-bag',
             description: "【PC-spin(okversion)】2巡目",
             win_condition: {
@@ -191,7 +190,7 @@
                 },
             ]
         },
-        pcSpin3ndPCBag: {
+        {
             id: 'pc-spin-3nd-pc-bag',
             description: "【PC-spin(okversion)】3巡目PCの練習",
             win_condition: {
@@ -210,7 +209,7 @@
                 },
             ]
         },
-        pcSpin3ndPCBag2: {
+        {
             id: 'pc-spin-3nd-pc-bag2',
             description: "【PC-spin(okversion)】3巡目PCの練習2",
             win_condition: {
@@ -229,7 +228,7 @@
                 },
             ]
         },
-        satsuki_2bug: {
+        {
             id: 'satsuki_2bug',
             description: "【皐月積み】2巡目の練習",
             win_condition: {
@@ -248,7 +247,7 @@
                 },
             ]
         }
-    }
+    ]);
     const MAP_SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
     const NOTIFY_USER_GAME_COUNT = 100;
     const SIMULATE_KEY_PRESS_DELAY = 100; // milliseconds
@@ -407,7 +406,7 @@
         dropdown.style.fontSize = '16px';
         dropdown.style.marginBottom = '20px';
 
-        Object.values(EXERCISES).forEach(book => {
+        EXERCISES.forEach(book => {
             let opt = document.createElement('option');
             opt.value = book.id;
             opt.innerHTML = book.description;
@@ -436,7 +435,7 @@
 
         confirmButton.onclick = function() {
             let selectedValue = document.getElementById('gameModeSelector').value;
-            g_currentExercise = Object.values(EXERCISES).find(book => book.id === selectedValue);
+            g_currentExercise = Array.from(EXERCISES).find(book => book.id === selectedValue);
             document.body.removeChild(overlay);
             document.body.removeChild(selectionWindow);
 
