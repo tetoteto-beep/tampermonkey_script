@@ -172,6 +172,21 @@
             ]
         },
         {
+            id: 'pc-spin-1st-bag',
+            description: "【PC-spin(okversion)】1巡目(LJ設置済み確定盤面から)",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 2,
+            },
+            isPieceQueueShuffle: true,
+            board_list: [
+                {
+                    pieceQueue: 'tiszo',
+                    mapCode: '00000000000000000055000000000000000000050000000000000000000500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000400000000000000000044'
+                },
+            ]
+        },
+        {
             id: 'pc-spin-2nd-bag',
             description: "【PC-spin(okversion)】2巡目",
             win_condition: {
