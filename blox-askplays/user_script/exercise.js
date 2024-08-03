@@ -317,8 +317,10 @@
         let exerciseIndex = g_currentGameCount % g_currentExercise.board_list.length;
         const exercise = g_currentExercise.board_list[exerciseIndex];
 
+        map_seed = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
+
         if (g_currentExercise.isPieceQueueShuffle) {
-            exercise.pieceQueue = shuffleString(exercise.pieceQueue);
+            exercise.pieceQueue = shuffleString(exercise.pieceQueue, map_seed);
         }
 
         const event = new Event("change");
@@ -331,7 +333,7 @@
 
         g_domElements['piece-queue'].value = exercise.pieceQueue;
         g_domElements['map-code'].value = exercise.mapCode;
-        g_domElements['map-seed'].value = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
+        g_domElements['map-seed'].value = map_seed;
         g_domElements['load-map'].click();
     }
 
