@@ -12,12 +12,12 @@
 
 (function() {
     'use strict';
-    console.log("念のため更新を確認するためのdebug。0730-13")
+    console.log("念のため更新を確認するためのdebug。0803-01")
 
 
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
-    const EXERCISES = new Set([
+    const EXERCISES = [
         {
             id: 'count_only_mode',
             description: "ノーマル練習（カウント機能のみ）",
@@ -270,7 +270,7 @@
                 },
             ]
         }
-    ]);
+    ];
     const MAP_SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
     const NOTIFY_USER_GAME_COUNT = 100;
     const SIMULATE_KEY_PRESS_DELAY = 100; // milliseconds
@@ -460,7 +460,7 @@
 
         confirmButton.onclick = function() {
             let selectedValue = document.getElementById('gameModeSelector').value;
-            g_currentExercise = Array.from(EXERCISES).find(book => book.id === selectedValue);
+            g_currentExercise = EXERCISES.find(book => book.id === selectedValue);
             document.body.removeChild(overlay);
             document.body.removeChild(selectionWindow);
 
