@@ -14,7 +14,6 @@
     'use strict';
     console.log("念のため更新を確認するためのdebug。0803-01")
 
-
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
     const EXERCISES = [
@@ -285,7 +284,7 @@
     /**
      * Retrieve DOM elements and store them in the global variable g_domElements.
      */
-    function getDomElements() {
+    function setDomElements() {
         DOM_ELEMENT_IDS.forEach(id => {
             g_domElements[id] = document.getElementById(id);
         });
@@ -471,7 +470,7 @@
     }
 
     function selectGameMode() {
-        getDomElements();
+        setDomElements();
         let overlay = createOverlay();
         let selectionWindow = createSelectionWindow(overlay);
         createTitle(selectionWindow);
