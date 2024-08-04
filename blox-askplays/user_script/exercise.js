@@ -462,8 +462,6 @@
             g_currentExercise = EXERCISES.find(book => book.id === selectedValue);
             document.body.removeChild(overlay);
             document.body.removeChild(selectionWindow);
-
-            updateField();
         };
 
         selectionWindow.appendChild(confirmButton);
