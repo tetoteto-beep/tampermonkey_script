@@ -667,12 +667,18 @@
      */
     function createReturnButton() {
         let returnButton = document.createElement('button');
-        returnButton.innerHTML = '戻る';
-        returnButton.style.marginLeft = '10px';
+        returnButton.innerHTML = 'ゲーム選択に戻る';
         returnButton.style.fontSize = '16px';
         returnButton.style.padding = '5px 10px';
         returnButton.style.cursor = 'pointer';
-        returnButton.style.display = 'inline-block';
+        returnButton.style.backgroundColor = '#4CAF50'; // Same green as confirm button
+        returnButton.style.color = '#fff'; // Text color white
+        returnButton.style.border = 'none';
+        returnButton.style.borderRadius = '5px';
+        returnButton.style.position = 'fixed'; // Fixed position
+        returnButton.style.right = '10px'; // Position to the right
+        returnButton.style.top = '10px'; // Position at the top
+        returnButton.style.zIndex = '1001'; // Ensure it is on top of other elements
 
         // Add the return button functionality
         returnButton.onclick = function() {
@@ -725,6 +731,7 @@
     }
 
     function selectGameMode() {
+        initializeGlobalVar();
         setDomElements();
         let overlay = createOverlay();
         let selectionWindow = createSelectionWindow(overlay);
@@ -734,7 +741,6 @@
     }
 
     // Main Event
-    initializeGlobalVar();
     window.addEventListener('load', selectGameMode);
 
     document.addEventListener('keydown', function(event) {
