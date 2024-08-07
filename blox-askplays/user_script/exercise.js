@@ -662,7 +662,32 @@
     }
 
     /**
-     * Create an element to display the current exercise title.
+     * Create a return button element.
+     * @returns {HTMLButtonElement} - The created return button element.
+     */
+    function createReturnButton() {
+        let returnButton = document.createElement('button');
+        returnButton.innerHTML = '戻る';
+        returnButton.style.marginLeft = '10px';
+        returnButton.style.fontSize = '16px';
+        returnButton.style.padding = '5px 10px';
+        returnButton.style.cursor = 'pointer';
+        returnButton.style.display = 'inline-block';
+
+        // Add the return button functionality
+        returnButton.onclick = function() {
+            let overlay = createOverlay();
+            let selectionWindow = createSelectionWindow(overlay);
+            createTitle(selectionWindow);
+            createDropdown(selectionWindow);
+            createConfirmButton(selectionWindow, overlay);
+        };
+
+        return returnButton;
+    }
+
+    /**
+     * Create an element to display the current exercise title and a button to return to the selection screen.
      */
     function createExerciseTitleElement() {
         let exerciseTitleElement = document.createElement('div');
@@ -677,6 +702,9 @@
         exerciseTitleElement.style.padding = '10px';
         exerciseTitleElement.style.fontSize = '20px';
         exerciseTitleElement.style.zIndex = '1000';
+
+        // Append the return button
+        exerciseTitleElement.appendChild(createReturnButton());
         document.body.appendChild(exerciseTitleElement);
     }
 
@@ -690,7 +718,10 @@
             createExerciseTitleElement();
             exerciseTitleElement = document.getElementById('exerciseTitle');
         }
+        // Update the title
         exerciseTitleElement.innerHTML = title;
+        // Append the return button again to ensure it is not removed
+        exerciseTitleElement.appendChild(createReturnButton());
     }
 
     function selectGameMode() {
