@@ -638,16 +638,15 @@
         exerciseTitleElement.style.bottom = '0';
         exerciseTitleElement.style.left = '50%';
         exerciseTitleElement.style.transform = 'translateX(-50%)';
-        exerciseTitleElement.style.width = '80%'; // Adjust width to fit better
-        exerciseTitleElement.style.backgroundColor = 'rgba(255, 255, 255, 0.8)'; // Semi-transparent background
-        exerciseTitleElement.style.color = '#000';
+        exerciseTitleElement.style.width = '80%';
+        exerciseTitleElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        exerciseTitleElement.style.color = '#ccc';
         exerciseTitleElement.style.textAlign = 'center';
-        exerciseTitleElement.style.padding = '10px';
-        exerciseTitleElement.style.fontSize = '20px';
+        exerciseTitleElement.style.padding = '8px';
+        exerciseTitleElement.style.fontSize = '12px';
         exerciseTitleElement.style.zIndex = '1000';
-        exerciseTitleElement.style.borderTop = '2px solid #4CAF50'; // Add a border for a better look
+        exerciseTitleElement.style.borderTop = '2px solid #4CAF50'; // Green border for visibility
 
-        // Append the return button
         document.body.appendChild(exerciseTitleElement);
     }
 
