@@ -12,7 +12,7 @@
 
 (function() {
     'use strict';
-    console.log("念のため更新を確認するためのdebug。0803-01")
+    console.log("念のため更新を確認するためのdebug。0803-03")
 
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
@@ -655,9 +655,42 @@
             g_currentExercise = EXERCISES.find(book => book.id === selectedValue);
             document.body.removeChild(overlay);
             document.body.removeChild(selectionWindow);
+            updateExerciseTitle(g_currentExercise.title);
         };
 
         selectionWindow.appendChild(confirmButton);
+    }
+
+    /**
+     * Create an element to display the current exercise title.
+     */
+    function createExerciseTitleElement() {
+        let exerciseTitleElement = document.createElement('div');
+        exerciseTitleElement.id = 'exerciseTitle';
+        exerciseTitleElement.style.position = 'fixed';
+        exerciseTitleElement.style.top = '0';
+        exerciseTitleElement.style.left = '0';
+        exerciseTitleElement.style.width = '100%';
+        exerciseTitleElement.style.backgroundColor = '#fff';
+        exerciseTitleElement.style.color = '#000';
+        exerciseTitleElement.style.textAlign = 'center';
+        exerciseTitleElement.style.padding = '10px';
+        exerciseTitleElement.style.fontSize = '20px';
+        exerciseTitleElement.style.zIndex = '1000';
+        document.body.appendChild(exerciseTitleElement);
+    }
+
+    /**
+     * Update the exercise title element with the current exercise title.
+     * @param {string} title - The title of the current exercise.
+     */
+    function updateExerciseTitle(title) {
+        let exerciseTitleElement = document.getElementById('exerciseTitle');
+        if (!exerciseTitleElement) {
+            createExerciseTitleElement();
+            exerciseTitleElement = document.getElementById('exerciseTitle');
+        }
+        exerciseTitleElement.innerHTML = title;
     }
 
     function selectGameMode() {
