@@ -24,7 +24,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 10,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: '',
@@ -39,7 +38,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: true,
             board_list: [
                 {
                     pieceQueue: '',
@@ -58,7 +56,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: true,
             board_list: [
                 {
                     pieceQueue: 'js',
@@ -77,7 +74,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: true,
             board_list: [
                 {
                     pieceQueue: 'tjls',
@@ -97,7 +93,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: true,
             board_list: [
                 {
                     pieceQueue: 'tszl',
@@ -133,7 +128,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: true,
             board_list: [
                 {
                     pieceQueue: 't',
@@ -153,7 +147,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: '',
@@ -180,7 +173,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 's',
@@ -199,7 +191,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
             },
-            isPieceQueueShuffle: true,
             board_list: [
                 {
                     pieceQueue: 'losit',
@@ -218,7 +209,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 'o',
@@ -233,7 +223,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 't',
@@ -260,7 +249,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 't',
@@ -279,7 +267,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 't',
@@ -298,7 +285,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 't',
@@ -313,7 +299,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: true,
             board_list: [
                 {
                     pieceQueue: 'tizol',
@@ -336,7 +321,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: '',
@@ -355,7 +339,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 't',
@@ -374,7 +357,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 't',
@@ -393,7 +375,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: true,
             board_list: [
                 {
                     pieceQueue: 'jszto',
@@ -412,7 +393,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 'j',
@@ -431,7 +411,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 't',
@@ -450,7 +429,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 't',
@@ -469,7 +447,6 @@
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
             },
-            isPieceQueueShuffle: false,
             board_list: [
                 {
                     pieceQueue: 'jt',
@@ -484,10 +461,21 @@
     const DOM_ELEMENT_IDS = ['piece-queue', 'map-code', 'map-seed', 'load-map', 'win-con', 'win-con-count'];
 
     // Global Variables
-    let g_currentGameCount = 0;
-    let g_isSimulatingRKey = false;
-    let g_currentExercise = null;
-    let g_domElements = {};
+    let g_currentGameCount;
+    let g_isSimulatingRKey;
+    let g_currentExercise;
+    let g_domElements;
+
+    /**
+     * initialize global valiables
+     */
+    function initializeGlobalVar() {
+        g_currentGameCount = 0;
+        g_isSimulatingRKey = false;
+        g_currentExercise = null;
+        g_domElements = {};
+    }
+
 
     /**
      * Retrieve DOM elements and store them in the global variable g_domElements.
@@ -533,10 +521,7 @@
         const exercise = g_currentExercise.board_list[exerciseIndex];
 
         let map_seed = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
-        let pieceQueue = exercise.pieceQueue;
-        if (g_currentExercise.isPieceQueueShuffle) {
-            pieceQueue = shuffleString(exercise.pieceQueue, map_seed);
-        }
+        let pieceQueue = shuffleString(exercise.pieceQueue, map_seed);
 
         const event = new Event("change");
 
@@ -685,6 +670,7 @@
     }
 
     // Main Event
+    initializeGlobalVar();
     window.addEventListener('load', selectGameMode);
 
     document.addEventListener('keydown', function(event) {
