@@ -2,7 +2,7 @@
 // @name         テトリス 練習
 // @namespace    http://tampermonkey.net/
 // @version      2024-08-06
-// @description  try to take over the world!
+// @description  テトリスの練習のためのスクリプトであり、Blox上で苦手盤面を練習できるようになっています。
 // @author       author
 // @match        https://blox.askplays.com/map-maker
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
@@ -12,7 +12,7 @@
 
 (function() {
     'use strict';
-    console.log("念のため更新を確認するためのdebug。0803-03")
+    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-06")
 
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
