@@ -68,27 +68,8 @@
             ]
         },
         {
-            id: 'honey_cup_2nd_bag_lv3',
-            title: "【はちみつ砲】2巡目の練習③",
-            win_condition: {
-                type: 1, // "0"Lines, "1"PC, "2"No Garbage
-                count: 2,
-            },
-            board_list: [
-                {
-                    pieceQueue: 'tjls',
-                    mapCode: '00000000000000000001000000000000000000010000000000000000000100000000000000000001000000000000000000700000000000000000007700000000000000000007000000000000000000000000000000000000002200000000000000000022'
-                },
-                {
-                    pieceQueue: 'tjlz',
-                    mapCode: '00000000000000000022000000000000000000220000000000000000000000000000000000000006000000000000000000660000000000000000006000000000000000000001000000000000000000010000000000000000000100000000000000000001'
-                },
-
-            ]
-        },
-        {
             id: 'honey_cup_1st_bag',
-            title: "【はちみつ砲】1巡目 ハードドロップ確定盤面から",
+            title: "【はちみつ砲】1巡目 ハードドロップのみ確定盤面から",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -218,7 +199,7 @@
         },
         {
             id: 'dpc_o_harddrop_ver_pc_root',
-            title: "【DPC練習】o残し ハードドロップ多め派生のpc練習",
+            title: "【DPC練習】o残し L->S(J->Z)型　pc練習",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -244,7 +225,7 @@
         },
         {
             id: 'dpc_o_dakyou_harddrop_ver_pc_root',
-            title: "【DPC練習】o残し （妥協系）ハードドロップ多め派生のpc練習",
+            title: "【DPC練習】o残し　L->S(J->Z)型　妥協系　pc練習",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -262,7 +243,7 @@
         },
         {
             id: 'dpc_o_compromise_root',
-            title: "【DPC練習】o残し 妥協系",
+            title: "【DPC練習】o残し S->L(Z->J)型　妥協系",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -275,20 +256,6 @@
                 {
                     pieceQueue: 't',
                     mapCode: '00000000000000001111000000000000000077220000000000000007702200000000000000000006000000000000000000660000000000000000046000000000000000000444000000000000000002200000000000000000022500000000000000000555'
-                },
-            ]
-        },
-        {
-            id: 'dpc_t',
-            title: "【DPC練習】t残し",
-            win_condition: {
-                type: 1, // "0"Lines, "1"PC, "2"No Garbage
-                count: 1,
-            },
-            board_list: [
-                {
-                    pieceQueue: 't',
-                    mapCode: MAP_CODE_DEFAULT
                 },
             ]
         },
@@ -406,7 +373,7 @@
         },
         {
             id: 'sangaku2gou_3bug_pc_root_sz',
-            title: "【山岳積み2号】3巡目パフェルート練習（s/zが早い場合）",
+            title: "【山岳積み2号】3巡目 pc練習（s/zが早い場合）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -424,7 +391,7 @@
         },
         {
             id: 'sangaku2gou_3bug_pc_root_o',
-            title: "【山岳積み2号】3巡目パフェルート練習（oが早い場合）",
+            title: "【山岳積み2号】3巡目 pcパフェルート練習（oが早い場合）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
