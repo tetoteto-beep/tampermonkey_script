@@ -19,7 +19,7 @@
     const EXERCISES = [
         {
             id: 'count_only_mode',
-            description: "ノーマル練習（カウント機能のみ）",
+            title: "ノーマル練習（カウント機能のみ）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 10,
@@ -34,7 +34,7 @@
         },
         {
             id: 'honey_cup_2nd_bag_lv1',
-            description: "【はちみつ砲】2巡目の練習①",
+            title: "【はちみつ砲】2巡目の練習①",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -53,7 +53,7 @@
         },
         {
             id: 'honey_cup_2nd_bag_lv2',
-            description: "【はちみつ砲】2巡目の練習②",
+            title: "【はちみつ砲】2巡目の練習②",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -72,7 +72,7 @@
         },
         {
             id: 'honey_cup_2nd_bag_lv3',
-            description: "【はちみつ砲】2巡目の練習③",
+            title: "【はちみつ砲】2巡目の練習③",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -92,7 +92,7 @@
         },
         {
             id: 'honey_cup_1st_bag',
-            description: "【はちみつ砲】1巡目 ハードドロップ確定盤面から",
+            title: "【はちみつ砲】1巡目 ハードドロップ確定盤面から",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -128,7 +128,7 @@
         },
         {
             id: 'honey_cup_3nd_bag_a2_root_pc_practice',
-            description: "【はちみつ砲】3巡目(A②ルート)のパフェ練習",
+            title: "【はちみつ砲】3巡目(A②ルート)のパフェ練習",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -148,7 +148,7 @@
         },
         {
             id: 'honey_cup_basic_pc_root',
-            description: "【はちみつ砲】3巡目 基本形 PCルートの練習",
+            title: "【はちみつ砲】3巡目 基本形 PCルートの練習",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -175,7 +175,7 @@
         },
         {
             id: 'dpc_sz',
-            description: "【DPC練習】s/z残し",
+            title: "【DPC練習】s/z残し",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -194,7 +194,7 @@
         },
         {
             id: 'dpc_sz_doukei',
-            description: "【DPC練習】s/z残し ssl(zzj)型",
+            title: "【DPC練習】s/z残し ssl(zzj)型",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -213,7 +213,7 @@
         },
         {
             id: 'dpc_o',
-            description: "【DPC練習】o残し",
+            title: "【DPC練習】o残し",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -228,7 +228,7 @@
         },
         {
             id: 'dpc_o_harddrop_ver_pc_root',
-            description: "【DPC練習】o残し ハードドロップ多め派生のpc練習",
+            title: "【DPC練習】o残し ハードドロップ多め派生のpc練習",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -255,7 +255,7 @@
         },
         {
             id: 'dpc_o_dakyou_harddrop_ver_pc_root',
-            description: "【DPC練習】o残し （妥協系）ハードドロップ多め派生のpc練習",
+            title: "【DPC練習】o残し （妥協系）ハードドロップ多め派生のpc練習",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -274,7 +274,7 @@
         },
         {
             id: 'dpc_o_compromise_root',
-            description: "【DPC練習】o残し 妥協系",
+            title: "【DPC練習】o残し 妥協系",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -293,7 +293,7 @@
         },
         {
             id: 'dpc_t',
-            description: "【DPC練習】t残し",
+            title: "【DPC練習】t残し",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -308,7 +308,7 @@
         },
         {
             id: 'pc-spin-1st-bag',
-            description: "【PC-spin(okversion)】1巡目(確定ミノ設置済み盤面から)",
+            title: "【PC-spin(okversion)】1巡目(確定ミノ設置済み盤面から)",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -331,7 +331,7 @@
         },
         {
             id: 'pc-spin-2nd-bag',
-            description: "【PC-spin(okversion)】2巡目",
+            title: "【PC-spin(okversion)】2巡目",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -350,7 +350,7 @@
         },
         {
             id: 'pc-spin-3nd-pc-bag',
-            description: "【PC-spin(okversion)】3巡目PCの練習",
+            title: "【PC-spin(okversion)】3巡目PCの練習",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -369,7 +369,7 @@
         },
         {
             id: 'pc-spin-3nd-pc-bag2',
-            description: "【PC-spin(okversion)】3巡目PCの練習2",
+            title: "【PC-spin(okversion)】3巡目PCの練習2",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -388,7 +388,7 @@
         },
         {
             id: 'satsuki_1bug',
-            description: "【皐月積み】1巡目（確定盤面）",
+            title: "【皐月積み】1巡目（確定盤面）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -407,7 +407,7 @@
         },
         {
             id: 'satsuki_2bug',
-            description: "【皐月積み】2巡目の練習",
+            title: "【皐月積み】2巡目の練習",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -426,7 +426,7 @@
         },
         {
             id: 'sangaku2gou_3bug_pc_root_sz',
-            description: "【山岳積み2号】3巡目パフェルート練習（s/zが早い場合）",
+            title: "【山岳積み2号】3巡目パフェルート練習（s/zが早い場合）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -445,7 +445,7 @@
         },
         {
             id: 'sangaku2gou_3bug_pc_root_o',
-            description: "【山岳積み2号】3巡目パフェルート練習（oが早い場合）",
+            title: "【山岳積み2号】3巡目パフェルート練習（oが早い場合）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -464,7 +464,7 @@
         },
         {
             id: 'meisouhou_dakyou_pc_root',
-            description: "【迷走法】3巡目パフェルート（妥協）練習",
+            title: "【迷走法】3巡目パフェルート（妥協）練習",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -641,7 +641,7 @@
         EXERCISES.forEach(book => {
             let opt = document.createElement('option');
             opt.value = book.id;
-            opt.innerHTML = book.description;
+            opt.innerHTML = book.title;
             dropdown.appendChild(opt);
         });
 
