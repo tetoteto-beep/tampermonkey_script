@@ -71,3 +71,23 @@ function shuffleString(str, seed = 'defaultSeed') {
     }
     return arr.join('');
 }
+
+/**
+ * シード値を用いてリストからランダムに要素を取得します。
+ * 
+ * @param {Array} list ランダムに要素を取得するリスト
+ * @param {string|number} seed シード値（文字列または数値）
+ * @returns {*} リストから取得されたランダムな要素
+ * 
+ * @example
+ * // 出力例: 'banana'
+ * console.log(getRandomElementFromList(['apple', 'banana', 'cherry'], 'seed123'));
+ */
+function getRandomElementFromList(list, seed) {
+    if (typeof seed === 'string') {
+        seed = stringToSeed(seed);
+    }
+    const randomValue = generateRandom(seed);
+    const index = Math.floor(randomValue * list.length);
+    return list[index];
+}

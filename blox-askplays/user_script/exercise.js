@@ -526,10 +526,11 @@
     function updateField() {
         if (!checkDomElements()) return;
 
-        let exerciseIndex = g_currentGameCount % g_currentExercise.board_list.length;
-        const exercise = g_currentExercise.board_list[exerciseIndex];
+        //let exerciseIndex = g_currentGameCount % g_currentExercise.board_list.length;
+        //const exercise = g_currentExercise.board_list[exerciseIndex];
 
         let map_seed = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
+        let exercise = getRandomElementFromList(g_currentExercise.board_list, map_seed)
         let pieceQueue = shuffleString(exercise.pieceQueue, map_seed);
 
         const event = new Event("change");
