@@ -84,10 +84,7 @@ function shuffleString(str, seed = 'defaultSeed') {
  * console.log(getRandomElementFromList(['apple', 'banana', 'cherry'], 'seed123'));
  */
 function getRandomElementFromList(list, seed) {
-    if (typeof seed === 'string') {
-        seed = stringToSeed(seed);
-    }
-    const randomValue = generateRandom(seed);
-    const index = Math.floor(randomValue * list.length);
+    
+    const index = stringToSeed(seed) % list.length;
     return list[index];
 }
