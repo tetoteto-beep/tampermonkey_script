@@ -543,6 +543,20 @@
                 },
             ]
         },
+        {
+            id: 'meisou_2junme',
+            title: "【迷走法】2巡目　判断練習",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 2,
+            },
+            board_list: [
+                {
+                    pieceQueue: '',
+                    mapCode: '00000000000000001111000000000000000004440000000000000000066400000000000000000066000000000000000003330000000000000000003000000000000000000005000000000000000075550000000000000000772200000000000000000722'
+                }
+            ]
+        },
     ];
     const MAP_SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
     const NOTIFY_USER_GAME_COUNT = 100;
