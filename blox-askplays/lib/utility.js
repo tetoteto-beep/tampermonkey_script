@@ -88,3 +88,27 @@ function getRandomElementFromList(list, seed) {
     const index = stringToSeed(seed) % list.length;
     return list[index];
 }
+
+/**
+ * 入力文字列からhold_minoとqueue_pieceを抽出します。
+ * 
+ * @param {string} input 入力文字列。形式は"[(一文字)](0文字以上の文字列)"です。
+ * @returns {{hold_mino: string, queue_piece: string}} hold_minoとqueue_pieceのオブジェクト
+ * 
+ * @example
+ * // 出力例: { hold_mino: 'o', queue_piece: 'tsj' }
+ * console.log(extractHoldAndQueue("[o]tsj"));
+ */
+function extractHoldAndQueue(input) {
+    // 正規表現を使用してホールドミノとキューピースを抽出
+    const match = input.match(/^\[(.)\](.*)$/);
+    
+    if (match) {
+        const hold_mino = match[1]; // 一文字
+        const queue_piece = match[2]; // 残りの文字列
+        return { hold_mino, queue_piece };
+    } else {
+        // 入力が想定される形式ではない場合、nullを返す
+        return null;
+    }
+}
