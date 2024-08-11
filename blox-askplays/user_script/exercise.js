@@ -12,7 +12,7 @@
 
 (function() {
     'use strict';
-    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-06")
+    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-12-1")
 
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
@@ -26,6 +26,7 @@
             },
             board_list: [
                 {
+                    holdPiece: '',
                     pieceQueue: '',
                     mapCode: MAP_CODE_DEFAULT
                 },
@@ -156,11 +157,11 @@
             },
             board_list: [
                 {
-                    pieceQueue: 's',
+                    holdPiece: 's',
                     mapCode: MAP_CODE_DEFAULT
                 },
                 {
-                    pieceQueue: 'z',
+                    holdPiece: 'z',
                     mapCode: MAP_CODE_DEFAULT
                 },
             ]
@@ -210,7 +211,7 @@
             },
             board_list: [
                 {
-                    pieceQueue: 'o',
+                    holdPiece: 'o',
                     mapCode: MAP_CODE_DEFAULT
                 },
             ]
@@ -604,38 +605,84 @@
     }
 
     /**
-     * Simulate pressing the 'r' key with a delay.
-     */
-    function simulateRKeyPress() {
+    * Simulate pressing the 'r' key with a delay.
+    * If holdPiece is provided, update the hold piece accordingly.
+    *
+    * @param {string|null} holdPiece ホールドされているピース。nullの場合はホールドピースの更新をスキップ
+    */
+    function simulateRKeyPress(holdPiece = null) {
         setTimeout(() => {
             g_isSimulatingRKey = true;
             simulateKeyPress('r');
             g_isSimulatingRKey = false;
+
+            // holdPieceがnullでない場合にのみホールドミノを更新
+            if (holdPiece !== null) {
+                let pieceColor = convertToColor(holdPiece);
+                holdBlock = new Piece(0, 0, pieceColor);
+            }
+
         }, SIMULATE_KEY_PRESS_DELAY);
+    }
+
+
+    /**
+    * 現在のゲームカウントとエクササイズ情報に基づいて辞書形式のデータを生成します。
+    * この関数は、指定されたボードからシャッフルされたピースキュー、ホールドピース、
+    * 勝利条件、および使用されたシード値を返します。
+    *
+    * @returns {object} 辞書形式でpieceQueue, holdPiece, win_condition, seedを返す
+    *
+    * @property {string} pieceQueue シャッフルされたピースキュー。nullの場合は空文字を返す
+    * @property {string} holdPiece ホールドされているピース。nullの場合は空文字を返す
+    * @property {string} win_condition ゲームの勝利条件
+    * @property {string} seed 使用されたシード値
+    *
+    * @example
+    * const result = generateExerciseData();
+    * console.log(result.pieceQueue);  // シャッフルされたピースキューが表示されます。
+    * console.log(result.holdPiece);   // ホールドピースが表示されます。
+    * console.log(result.win_condition); // ゲームの勝利条件が表示されます。
+    * console.log(result.seed);        // 使用されたシード値が表示されます。
+    */
+    function generateExerciseData() {
+        let seed = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
+
+        // 指定されたボードを取得
+        let board = getRandomElementFromList(g_currentExercise.board_list, seed);
+
+        // ピースキューとホールドピースを処理、nullの場合は空文字を返す
+        let pieceQueue = board.pieceQueue ? shuffleString(board.pieceQueue, seed) : '';
+        let holdPiece = board.holdPiece ? board.holdPiece : '';
+
+        return {
+            piece_queue: pieceQueue,
+            hold_piece: holdPiece,
+            win_condition: g_currentExercise.win_condition,
+            map_code: board.mapCode,
+            seed: seed,
+        };
     }
 
     /**
      * Update the field based on the current exercise and game count.
      */
-    function updateField() {
+    function updateField(exercise) {
         if (!checkDomElements()) return;
-
-        let map_seed = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
-        let exercise = getRandomElementFromList(g_currentExercise.board_list, map_seed)
-        let pieceQueue = shuffleString(exercise.pieceQueue, map_seed);
 
         const event = new Event("change");
 
-        g_domElements['win-con'].value = g_currentExercise.win_condition.type;
+        g_domElements['win-con'].value = exercise.win_condition.type;
         g_domElements['win-con'].dispatchEvent(event);
 
-        g_domElements['win-con-count'].value = g_currentExercise.win_condition.count;
+        g_domElements['win-con-count'].value = exercise.win_condition.count;
         g_domElements['win-con-count'].dispatchEvent(event);
 
-        g_domElements['piece-queue'].value = pieceQueue;
-        g_domElements['map-code'].value = exercise.mapCode;
-        g_domElements['map-seed'].value = map_seed;
+        g_domElements['piece-queue'].value = exercise.piece_queue;
+        g_domElements['map-code'].value = exercise.map_code;
+        g_domElements['map-seed'].value = exercise.seed;
         g_domElements['load-map'].click();
+
     }
 
     /**
@@ -815,14 +862,16 @@
         if (event.key === 'r' && !g_isSimulatingRKey && g_currentExercise) {
             event.preventDefault();
             incrementGameCount(1);
-            updateField();
-            simulateRKeyPress();
+            const exercise = generateExerciseData();
+            updateField(exercise);
+            simulateRKeyPress(exercise.hold_piece);
         }
 
         if (event.key === 'R') {
             incrementGameCount(-1);
-            updateField();
-            simulateRKeyPress();
+            const exercise = generateExerciseData();
+            updateField(exercise);
+            simulateRKeyPress(exercise.hold_piece);
         }
     });
 
