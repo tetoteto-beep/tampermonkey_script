@@ -112,3 +112,29 @@ function extractHoldAndQueue(input) {
         return null;
     }
 }
+
+/**
+ * Tetriminoの文字を対応する色に変換します。
+ * 
+ * @param {string} piece 変換するTetriminoの文字 (例: 'i', 'o', 't')
+ * @returns {string} 対応する色 (例: 'teal', 'yellow', 'purple')
+ * 
+ * @example
+ * // 出力例: 'teal'
+ * console.log(convertToColor('i'));
+ */
+function convertToColor(piece) {
+    // 文字と色のマッピングを保持するオブジェクト
+    const pieceToColorMap = {
+        "i": "teal",
+        "o": "yellow",
+        "t": "purple",
+        "l": "orange",
+        "j": "blue",
+        "s": "green",
+        "z": "red"
+    };
+
+    // 入力文字に対応する色を返す
+    return pieceToColorMap[piece] || "unknown";
+}
