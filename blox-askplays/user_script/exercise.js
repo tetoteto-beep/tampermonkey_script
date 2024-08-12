@@ -639,7 +639,7 @@
             g_isSimulatingRKey = false;
 
             // holdPieceがnullでない場合にのみホールドミノを更新
-            if (holdPiece !== null) {
+            if (holdPiece) {
                 let pieceColor = convertToColor(holdPiece);
                 holdBlock = new Piece(0, 0, pieceColor);
             }
@@ -669,17 +669,11 @@
     */
     function generateExerciseData() {
         let seed = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
-
-        // 指定されたボードを取得
         let board = getRandomElementFromList(g_currentExercise.board_list, seed);
 
-        // ピースキューとホールドピースを処理、nullの場合は空文字を返す
-        let pieceQueue = board.pieceQueue ? shuffleString(board.pieceQueue, seed) : '';
-        let holdPiece = board.holdPiece ? board.holdPiece : '';
-
         return {
-            piece_queue: pieceQueue,
-            hold_piece: holdPiece,
+            piece_queue: board.pieceQueue ? shuffleString(board.pieceQueue, seed) : '',
+            hold_piece: board.holdPiece ? board.holdPiece : '',
             win_condition: g_currentExercise.win_condition,
             map_code: board.mapCode,
             seed: seed,
