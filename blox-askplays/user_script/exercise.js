@@ -149,6 +149,28 @@
             ]
         },
         {
+            id: 'dpc_szo',
+            title: "【DPC練習】osz残し",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 1,
+            },
+            board_list: [
+                {
+                    holdPiece: 'o',
+                    mapCode: MAP_CODE_DEFAULT
+                },
+                {
+                    holdPiece: 's',
+                    mapCode: MAP_CODE_DEFAULT
+                },
+                {
+                    holdPiece: 'z',
+                    mapCode: MAP_CODE_DEFAULT
+                },
+            ]
+        },
+        {
             id: 'dpc_sz',
             title: "【DPC練習】s/z残し",
             win_condition: {
