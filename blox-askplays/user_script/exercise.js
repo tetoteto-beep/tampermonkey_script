@@ -14,9 +14,10 @@
 
 (function() {
     'use strict';
-    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-14-2")
 
-    // Constants
+    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-14-6")
+
+    // 定数定義
     const EXERCISES = [
         {
             id: 'count_only_mode',
@@ -598,52 +599,24 @@
 
     ];
     const SIMULATE_KEY_PRESS_DELAY = 100; // milliseconds
-    const DOM_ELEMENT_IDS = ['piece-queue', 'map-code', 'map-seed', 'load-map', 'win-con', 'win-con-count'];
 
-    // Global Variables
+    // グローバル変数定義
     let g_isSimulatingRKey;
-    let g_domElements;
     let g_manager;
 
-    /**
-     * initialize global valiables
-     */
-    function initializeGlobalVar() {
+    // 環境の初期化処理
+    function initEnv() {
+        // グローバル変数の初期化処理
         g_isSimulatingRKey = false;
-        g_domElements = {};
-        g_manager = null;
+        g_manager = null; // ユーザがリストから問題を選択した時点で設定するためここではnullを設定しておく
+
+        // 画面下部にタイトルタグを作成
+        let exerciseTitleElement = document.createElement('div');
+        exerciseTitleElement.id = 'exerciseTitle';
+        document.body.appendChild(exerciseTitleElement);
     }
 
-
-    /**
-     * Retrieve DOM elements and store them in the global variable g_domElements.
-     */
-    function setDomElements() {
-        DOM_ELEMENT_IDS.forEach(id => {
-            g_domElements[id] = document.getElementById(id);
-        });
-    }
-
-    /**
-     * Check if all necessary DOM elements have been retrieved successfully.
-     * @returns {boolean} - Returns true if all elements are found, otherwise false.
-     */
-    function checkDomElements() {
-        for (let id of DOM_ELEMENT_IDS) {
-            if (!g_domElements[id]) {
-                console.error(`${id} element not found`);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-    * Simulate pressing the 'r' key with a delay.
-    * If holdPiece is provided, update the hold piece accordingly.
-    *
-    * @param {string|null} holdPiece ホールドされているピース。nullの場合はホールドピースの更新をスキップ
-    */
+    // リトライに割り当てられている（前提）'r'キーの押下をシミュレートする
     function simulateRKeyPress(holdPiece = null) {
         setTimeout(() => {
             g_isSimulatingRKey = true;
@@ -651,146 +624,91 @@
             g_isSimulatingRKey = false;
 
             // holdPieceがnullでない場合にのみホールドミノを更新
+            // ※ 補足
+            //   updateFieldでなく、リトライキーを押下（シミュレート）した後にホールドを設定する背景については以下の通り。
+            // 　ホールドについてはpiece queueやmap codeのように設定できるウインドウがない。
+            // 　updateField時に内部変数の値を更新してもリトライ処理時にnullになってしまうため、rを押下した後（ゲーム開始直前）に設定することとする。
             if (holdPiece) {
                 let pieceColor = convertToColor(holdPiece);
-                holdBlock = new Piece(0, 0, pieceColor);
+                holdBlock = new Piece(0, 0, pieceColor); // holdBlockはサイト側の変数。ここで直接参照して上書きする。
             }
-
         }, SIMULATE_KEY_PRESS_DELAY);
     }
 
-    /**
-     * Update the field based on the current exercise and game count.
-     */
+     // UI上の盤面情報の更新
     function updateField(exercise) {
-        if (!checkDomElements()) return;
 
+        // どうやら勝利条件は値だけ変えても、load-mapボタン押下時に変更前の値が参照される（値を変えても内部的には設定が反映されない）ため直接変更イベントを出しておく
         const event = new Event("change");
+        document.getElementById('win-con').value = exercise.win_condition.type;
+        document.getElementById('win-con').dispatchEvent(event);
+        document.getElementById('win-con-count').value = exercise.win_condition.count;
+        document.getElementById('win-con-count').dispatchEvent(event);
 
-        g_domElements['win-con'].value = exercise.win_condition.type;
-        g_domElements['win-con'].dispatchEvent(event);
-
-        g_domElements['win-con-count'].value = exercise.win_condition.count;
-        g_domElements['win-con-count'].dispatchEvent(event);
-
-        g_domElements['piece-queue'].value = exercise.piece_queue;
-        g_domElements['map-code'].value = exercise.map_code;
-        g_domElements['map-seed'].value = exercise.seed;
-        g_domElements['load-map'].click();
+        document.getElementById('piece-queue').value = exercise.piece_queue;
+        document.getElementById('map-code').value = exercise.map_code;
+        document.getElementById('map-seed').value = exercise.seed;
+        document.getElementById('load-map').click();
 
     }
 
-   /**
-    * Create an overlay to prevent interaction with the rest of the page.
-    * @returns {HTMLDivElement} - The created overlay element.
-    */
-    function createOverlay() {
+    // ゲームモードの選択画面の表示
+    function showSelectGameModeWindow() {
+
+        // create overlay
         let overlay = document.createElement('div');
         overlay.id = 'overlay';
         document.body.appendChild(overlay);
-        return overlay;
-    }
 
-    /**
-    * Create a selection window for choosing the exercise mode.
-    * @param {HTMLDivElement} overlay - The overlay element to append the window to.
-    * @returns {HTMLDivElement} - The created selection window element.
-    */
-    function createSelectionWindow(overlay) {
+        // create selection window on overlay
         let selectionWindow = document.createElement('div');
         selectionWindow.id = 'selectionWindow';
         overlay.appendChild(selectionWindow);
-        return selectionWindow;
-    }
 
-    /**
-    * Create a title element for the selection window.
-    * @param {HTMLDivElement} selectionWindow - The selection window element to append the title to.
-    */
-    function createTitle(selectionWindow) {
+        // create title on selection window
         let title = document.createElement('h2');
         title.innerHTML = 'ゲームを選択してください';
         selectionWindow.appendChild(title);
-    }
 
-    /**
-    * Create a dropdown menu for selecting the game mode.
-    * @param {HTMLDivElement} selectionWindow - The selection window element to append the dropdown to.
-    */
-    function createDropdown(selectionWindow) {
+        // create dropdown on selection window
         let dropdown = document.createElement('select');
         dropdown.id = 'gameModeSelector';
-
         EXERCISES.forEach(book => {
             let opt = document.createElement('option');
             opt.value = book.id;
             opt.innerHTML = book.title;
             dropdown.appendChild(opt);
         });
-
         selectionWindow.appendChild(dropdown);
-    }
 
-    /**
-    * Create a confirm button to finalize the game mode selection.
-    * @param {HTMLDivElement} selectionWindow - The selection window element to append the button to.
-    * @param {HTMLDivElement} overlay - The overlay element to remove after selection.
-    */
-    function createConfirmButton(selectionWindow, overlay) {
+        // create confirm-button on selection window and remove overlay when click this button
         let confirmButton = document.createElement('button');
         confirmButton.innerHTML = '決定';
-
         confirmButton.onclick = function() {
+
+            // ユーザが指定したエクササイズをg_managerに設定
             let selectedValue = document.getElementById('gameModeSelector').value;
             let exerciseData = EXERCISES.find(book => book.id === selectedValue);
             g_manager = new ExerciseManager(exerciseData);
 
+            // 作成したwindowをルートから削除
             document.body.removeChild(overlay);
-            document.body.removeChild(selectionWindow);
-            updateExerciseTitle(g_manager.title);
-        };
 
+            // 画面下部のタイトル文字列をアップデート
+            let exerciseTitleElement = document.getElementById('exerciseTitle');
+            exerciseTitleElement.innerHTML = g_manager.title;
+        };
         selectionWindow.appendChild(confirmButton);
     }
 
-    /**
-    * Create an element to display the current exercise title and a button to return to the selection screen.
-    */
-    function createExerciseTitleElementIfNotExist() {
-
-        let exerciseTitleElement = document.getElementById('exerciseTitle');
-        if (!exerciseTitleElement) {
-            let exerciseTitleElement = document.createElement('div');
-            exerciseTitleElement.id = 'exerciseTitle';
-            document.body.appendChild(exerciseTitleElement);
-        }
+    // 画面ロード時に行うメイン処理を定義
+    function loadMain() {
+        initEnv();
+        showSelectGameModeWindow();
     }
 
-    /**
-     * Update the exercise title element with the current exercise title.
-     * @param {string} title - The title of the current exercise.
-     */
-    function updateExerciseTitle(title) {
-
-        createExerciseTitleElementIfNotExist();
-        exerciseTitleElement = document.getElementById('exerciseTitle');
-
-        // Update the title
-        exerciseTitleElement.innerHTML = title;
-    }
-
-    function selectGameMode() {
-        initializeGlobalVar();
-        setDomElements();
-        let overlay = createOverlay();
-        let selectionWindow = createSelectionWindow(overlay);
-        createTitle(selectionWindow);
-        createDropdown(selectionWindow);
-        createConfirmButton(selectionWindow, overlay);
-    }
-
-    // Main Event
-    window.addEventListener('load', selectGameMode);
+    // イベントリスナーの設定
+    window.addEventListener('load', loadMain);
 
     document.addEventListener('keydown', function(event) {
         if (event.key === 'r' && !g_isSimulatingRKey && g_manager) {
