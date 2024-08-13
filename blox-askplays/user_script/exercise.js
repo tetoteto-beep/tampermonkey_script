@@ -12,7 +12,7 @@
 
 (function() {
     'use strict';
-    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-12-1")
+    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-13-1")
 
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
@@ -596,25 +596,103 @@
         },
 
     ];
-    const MAP_SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
-    const NOTIFY_USER_GAME_COUNT = 100;
     const SIMULATE_KEY_PRESS_DELAY = 100; // milliseconds
     const DOM_ELEMENT_IDS = ['piece-queue', 'map-code', 'map-seed', 'load-map', 'win-con', 'win-con-count'];
 
     // Global Variables
-    let g_currentGameCount;
     let g_isSimulatingRKey;
-    let g_currentExercise;
     let g_domElements;
+    let g_manager;
+
+    // Class Defnitions
+    class ExerciseManager {
+
+        constructor(exercise) {
+            // IDとタイトルを受け取る
+            this.id = exercise.id || 'default_id';
+            this.title = exercise.title || 'Default Title';
+
+            // win_conditionを受け取り、デフォルト値を設定
+            this.winCondition = exercise.win_condition || {
+                type: 0, // "0"Lines, "1"PC, "2"No Garbage
+                count: 10
+            };
+
+            // board_listを受け取り、デフォルト値を設定
+            this.boardList = exercise.board_list || [{
+                holdPiece: '',
+                pieceQueue: '',
+                mapCode: MAP_CODE_DEFAULT
+            }];
+
+            // 現在のゲームカウント
+            this.currentGameCount = 1;
+
+            this.SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
+            this.NOTIFY_USER_GAME_COUNT = 100;
+        }
+
+        /**
+        * 現在のゲームカウントをインクリメントします。
+        */
+        incrementGameCount() {
+            this.currentGameCount++;
+            this.notifyUserWhenCountModZero();
+        }
+
+        /**
+        * 現在のゲームカウントをデクリメントします。
+        * ただし、カウントが1未満にならないようにします。
+        */
+        decrementGameCount() {
+            if (this.currentGameCount > 1) {
+                this.currentGameCount--;
+            }
+        }
+
+        /**
+        * タイトルを取得
+        */
+        getTitle() {
+            return this.title;
+        }
+
+        /**
+        * 現在のエクササイズに対応するランダムなボードを取得します。
+        */
+        getCurrentExercise() {
+            const seed = `${this.currentGameCount}_${this.SEED_SUFFIX}`;
+            const selectedBoard = getRandomElementFromList(this.boardList, seed);
+
+            return {
+                map_code: selectedBoard.mapCode,
+                piece_queue: selectedBoard.pieceQueue ? shuffleString(board.pieceQueue, seed) : '',
+                hold_piece: selectedBoard.holdPiece || '',
+                win_condition: this.winCondition,
+                seed: seed,
+            };
+        }
+
+        /**
+        * Notify the user when the game count reaches a specified number.
+        */
+        notifyUserWhenCountModZero() {
+
+            if ((this.currentGameCount % this.NOTIFY_USER_GAME_COUNT === 0) && (this.currentGameCount >= this.NOTIFY_USER_GAME_COUNT)) {
+                console.log(`Game count reached ${this.currentGameCount}, which is a multiple of ${this.NOTIFY_USER_GAME_COUNT}!`);
+                alert(`Game count reached ${this.currentGameCount}, which is a multiple of ${this.NOTIFY_USER_GAME_COUNT}!`);
+            }
+        }
+
+    }
 
     /**
      * initialize global valiables
      */
     function initializeGlobalVar() {
-        g_currentGameCount = 0;
         g_isSimulatingRKey = false;
-        g_currentExercise = null;
         g_domElements = {};
+        g_manager = null;
     }
 
 
@@ -662,39 +740,6 @@
         }, SIMULATE_KEY_PRESS_DELAY);
     }
 
-
-    /**
-    * 現在のゲームカウントとエクササイズ情報に基づいて辞書形式のデータを生成します。
-    * この関数は、指定されたボードからシャッフルされたピースキュー、ホールドピース、
-    * 勝利条件、および使用されたシード値を返します。
-    *
-    * @returns {object} 辞書形式でpieceQueue, holdPiece, win_condition, seedを返す
-    *
-    * @property {string} pieceQueue シャッフルされたピースキュー。nullの場合は空文字を返す
-    * @property {string} holdPiece ホールドされているピース。nullの場合は空文字を返す
-    * @property {string} win_condition ゲームの勝利条件
-    * @property {string} seed 使用されたシード値
-    *
-    * @example
-    * const result = generateExerciseData();
-    * console.log(result.pieceQueue);  // シャッフルされたピースキューが表示されます。
-    * console.log(result.holdPiece);   // ホールドピースが表示されます。
-    * console.log(result.win_condition); // ゲームの勝利条件が表示されます。
-    * console.log(result.seed);        // 使用されたシード値が表示されます。
-    */
-    function generateExerciseData() {
-        let seed = `${g_currentGameCount}_${MAP_SEED_SUFFIX}`;
-        let board = getRandomElementFromList(g_currentExercise.board_list, seed);
-
-        return {
-            piece_queue: board.pieceQueue ? shuffleString(board.pieceQueue, seed) : '',
-            hold_piece: board.holdPiece ? board.holdPiece : '',
-            win_condition: g_currentExercise.win_condition,
-            map_code: board.mapCode,
-            seed: seed,
-        };
-    }
-
     /**
      * Update the field based on the current exercise and game count.
      */
@@ -714,28 +759,6 @@
         g_domElements['map-seed'].value = exercise.seed;
         g_domElements['load-map'].click();
 
-    }
-
-    /**
-     * Increment the game count and notify the user if the count reaches a multiple of NOTIFY_USER_GAME_COUNT.
-     * @param {number} n - The number to increment the game count by.
-     */
-    function incrementGameCount(n) {
-        g_currentGameCount = Math.max(g_currentGameCount + n, 1);
-
-        let completedGameCount = g_currentGameCount - 1;
-        if ((n>=0) && (completedGameCount % NOTIFY_USER_GAME_COUNT === 0) && (completedGameCount >= NOTIFY_USER_GAME_COUNT)) {
-            notifyUser(completedGameCount);
-        }
-    }
-
-    /**
-     * Notify the user when the game count reaches a specified number.
-     * @param {number} gameCount - The current game count.
-     */
-    function notifyUser(gameCount) {
-        console.log(`Game count reached ${gameCount}, which is a multiple of ${NOTIFY_USER_GAME_COUNT}!`);
-        alert(`Game count reached ${gameCount}, which is a multiple of ${NOTIFY_USER_GAME_COUNT}!`);
     }
 
     /**
@@ -831,10 +854,12 @@
 
         confirmButton.onclick = function() {
             let selectedValue = document.getElementById('gameModeSelector').value;
-            g_currentExercise = EXERCISES.find(book => book.id === selectedValue);
+            let exerciseData = EXERCISES.find(book => book.id === selectedValue);
+            g_manager = new ExerciseManager(exerciseData);
+
             document.body.removeChild(overlay);
             document.body.removeChild(selectionWindow);
-            updateExerciseTitle(g_currentExercise.title);
+            updateExerciseTitle(g_manager.title);
         };
 
         selectionWindow.appendChild(confirmButton);
@@ -890,17 +915,17 @@
     window.addEventListener('load', selectGameMode);
 
     document.addEventListener('keydown', function(event) {
-        if (event.key === 'r' && !g_isSimulatingRKey && g_currentExercise) {
+        if (event.key === 'r' && !g_isSimulatingRKey && g_manager) {
             event.preventDefault();
-            incrementGameCount(1);
-            const exercise = generateExerciseData();
+            g_manager.incrementGameCount();
+            const exercise = g_manager.getCurrentExercise();
             updateField(exercise);
             simulateRKeyPress(exercise.hold_piece);
         }
 
         if (event.key === 'R') {
-            incrementGameCount(-1);
-            const exercise = generateExerciseData();
+            g_manager.decrementGameCount();
+            const exercise = g_manager.getCurrentExercise();
             updateField(exercise);
             simulateRKeyPress(exercise.hold_piece);
         }
