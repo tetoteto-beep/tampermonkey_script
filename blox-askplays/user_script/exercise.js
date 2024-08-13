@@ -667,7 +667,7 @@
 
             return {
                 map_code: selectedBoard.mapCode,
-                piece_queue: selectedBoard.pieceQueue ? shuffleString(board.pieceQueue, seed) : '',
+                piece_queue: selectedBoard.pieceQueue ? shuffleString(selectedBoard.pieceQueue, seed) : '',
                 hold_piece: selectedBoard.holdPiece || '',
                 win_condition: this.winCondition,
                 seed: seed,
