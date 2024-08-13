@@ -580,6 +580,21 @@
                 }
             ]
         },
+        {
+            id: 'gamushiro_2junme',
+            title: "【ガムシロ】2巡目",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 2,
+            },
+            board_list: [
+                {
+                    pieceQueue: 'l',
+                    mapCode: '00000000000000006655000000000000000006650000000000000000000500000000000000000070000000000000000000770000000000000000003700000000000000000333000000000000000011110000000000000000002200000000000000000022'
+                }
+            ]
+        },
+
     ];
     const MAP_SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
     const NOTIFY_USER_GAME_COUNT = 100;
