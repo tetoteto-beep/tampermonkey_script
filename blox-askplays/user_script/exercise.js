@@ -12,7 +12,81 @@
 
 (function() {
     'use strict';
-    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-13-1")
+    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-14-2")
+
+    // CSSスタイルをJavaScriptで定義
+    function addStyles() {
+        const style = document.createElement('style');
+        style.innerHTML = `
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            pointer-events: auto;
+        }
+
+        #selectionWindow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        #selectionWindow h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #000;
+        }
+
+        #selectionWindow select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        #selectionWindow button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #exerciseTitle {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ccc;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            z-index: 1000;
+            border-top: 2px solid #4CAF50;
+        }
+    `;
+        document.head.appendChild(style);
+    }
+
+    // 初期化時にCSSスタイルを追加
+    addStyles();
+
+
 
     // Constants
     const MAP_CODE_DEFAULT = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
@@ -761,69 +835,46 @@
 
     }
 
-    /**
-     * Create an overlay to prevent interaction with the rest of the page.
-     * @returns {HTMLDivElement} - The created overlay element.
-     */
+   /**
+    * Create an overlay to prevent interaction with the rest of the page.
+    * @returns {HTMLDivElement} - The created overlay element.
+    */
     function createOverlay() {
         let overlay = document.createElement('div');
-        overlay.style.position = 'fixed';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        overlay.style.zIndex = '999';
-        overlay.style.pointerEvents = 'auto';
+        overlay.id = 'overlay';
         document.body.appendChild(overlay);
         return overlay;
     }
 
     /**
-     * Create a selection window for choosing the exercise mode.
-     * @param {HTMLDivElement} overlay - The overlay element to append the window to.
-     * @returns {HTMLDivElement} - The created selection window element.
-     */
+    * Create a selection window for choosing the exercise mode.
+    * @param {HTMLDivElement} overlay - The overlay element to append the window to.
+    * @returns {HTMLDivElement} - The created selection window element.
+    */
     function createSelectionWindow(overlay) {
         let selectionWindow = document.createElement('div');
-        selectionWindow.style.position = 'fixed';
-        selectionWindow.style.top = '50%';
-        selectionWindow.style.left = '50%';
-        selectionWindow.style.transform = 'translate(-50%, -50%)';
-        selectionWindow.style.padding = '30px';
-        selectionWindow.style.backgroundColor = '#fff';
-        selectionWindow.style.borderRadius = '10px';
-        selectionWindow.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
-        selectionWindow.style.zIndex = '1000';
-        overlay.style.pointerEvents = 'auto';
-        document.body.appendChild(selectionWindow);
+        selectionWindow.id = 'selectionWindow';
+        overlay.appendChild(selectionWindow);
         return selectionWindow;
     }
 
     /**
-     * Create a title element for the selection window.
-     * @param {HTMLDivElement} selectionWindow - The selection window element to append the title to.
-     */
+    * Create a title element for the selection window.
+    * @param {HTMLDivElement} selectionWindow - The selection window element to append the title to.
+    */
     function createTitle(selectionWindow) {
         let title = document.createElement('h2');
         title.innerHTML = 'ゲームを選択してください';
-        title.style.marginBottom = '20px';
-        title.style.textAlign = 'center';
-        title.style.color = '#000';
         selectionWindow.appendChild(title);
     }
 
     /**
-     * Create a dropdown menu for selecting the game mode.
-     * @param {HTMLDivElement} selectionWindow - The selection window element to append the dropdown to.
-     */
+    * Create a dropdown menu for selecting the game mode.
+    * @param {HTMLDivElement} selectionWindow - The selection window element to append the dropdown to.
+    */
     function createDropdown(selectionWindow) {
         let dropdown = document.createElement('select');
         dropdown.id = 'gameModeSelector';
-        dropdown.style.width = '100%';
-        dropdown.style.padding = '10px';
-        dropdown.style.fontSize = '16px';
-        dropdown.style.marginBottom = '20px';
 
         EXERCISES.forEach(book => {
             let opt = document.createElement('option');
@@ -836,21 +887,13 @@
     }
 
     /**
-     * Create a confirm button to finalize the game mode selection.
-     * @param {HTMLDivElement} selectionWindow - The selection window element to append the button to.
-     * @param {HTMLDivElement} overlay - The overlay element to remove after selection.
-     */
+    * Create a confirm button to finalize the game mode selection.
+    * @param {HTMLDivElement} selectionWindow - The selection window element to append the button to.
+    * @param {HTMLDivElement} overlay - The overlay element to remove after selection.
+    */
     function createConfirmButton(selectionWindow, overlay) {
         let confirmButton = document.createElement('button');
         confirmButton.innerHTML = '決定';
-        confirmButton.style.width = '100%';
-        confirmButton.style.padding = '10px';
-        confirmButton.style.fontSize = '16px';
-        confirmButton.style.backgroundColor = '#4CAF50';
-        confirmButton.style.color = '#fff';
-        confirmButton.style.border = 'none';
-        confirmButton.style.borderRadius = '5px';
-        confirmButton.style.cursor = 'pointer';
 
         confirmButton.onclick = function() {
             let selectedValue = document.getElementById('gameModeSelector').value;
@@ -866,25 +909,16 @@
     }
 
     /**
-     * Create an element to display the current exercise title and a button to return to the selection screen.
-     */
-    function createExerciseTitleElement() {
-        let exerciseTitleElement = document.createElement('div');
-        exerciseTitleElement.id = 'exerciseTitle';
-        exerciseTitleElement.style.position = 'fixed';
-        exerciseTitleElement.style.bottom = '0';
-        exerciseTitleElement.style.left = '50%';
-        exerciseTitleElement.style.transform = 'translateX(-50%)';
-        exerciseTitleElement.style.width = '80%';
-        exerciseTitleElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-        exerciseTitleElement.style.color = '#ccc';
-        exerciseTitleElement.style.textAlign = 'center';
-        exerciseTitleElement.style.padding = '8px';
-        exerciseTitleElement.style.fontSize = '12px';
-        exerciseTitleElement.style.zIndex = '1000';
-        exerciseTitleElement.style.borderTop = '2px solid #4CAF50'; // Green border for visibility
+    * Create an element to display the current exercise title and a button to return to the selection screen.
+    */
+    function createExerciseTitleElementIfNotExist() {
 
-        document.body.appendChild(exerciseTitleElement);
+        let exerciseTitleElement = document.getElementById('exerciseTitle');
+        if (!exerciseTitleElement) {
+            let exerciseTitleElement = document.createElement('div');
+            exerciseTitleElement.id = 'exerciseTitle';
+            document.body.appendChild(exerciseTitleElement);
+        }
     }
 
     /**
@@ -892,11 +926,10 @@
      * @param {string} title - The title of the current exercise.
      */
     function updateExerciseTitle(title) {
-        let exerciseTitleElement = document.getElementById('exerciseTitle');
-        if (!exerciseTitleElement) {
-            createExerciseTitleElement();
-            exerciseTitleElement = document.getElementById('exerciseTitle');
-        }
+
+        createExerciseTitleElementIfNotExist();
+        exerciseTitleElement = document.getElementById('exerciseTitle');
+
         // Update the title
         exerciseTitleElement.innerHTML = title;
     }
