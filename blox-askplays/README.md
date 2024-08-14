@@ -8,16 +8,16 @@
    Tampermonkey がインストールされていない場合は、[Tampermonkey の公式サイト](https://www.tampermonkey.net/)からブラウザに追加してください。
 
 2. **スクリプトのインポート**  
-   以下の URL からスクリプトをインポートできます。
+   以下の URL からスクリプトを取得できます。
 
-   - [user_script.js](https://raw.githubusercontent.com/tetoteto-beep/tampermonkey_script/main/blox-askplays/user_script.js)
+   - [user_script.js](https://raw.githubusercontent.com/tetoteto-beep/tampermonkey_script/main/blox-askplays/user_script.js) 
 
-   Tampermonkey のダッシュボードを開き、**「新しいスクリプトを追加」** をクリックします。次に、上記の URL をそれぞれのスクリプトとしてインポートします。
+  Tampermonkey のダッシュボードを開き、**「ユーティリティ」** タブをクリックします。**「URLからインポート」** に上記jsファイルのパスを入れてインストールしてください。
 
-## スクリプトの説明
+## スクリプト概要
 
 - **user_script.js**  
-  このスクリプトは、特定の演習やタスクを実行するための機能を提供します。Blox の特定の動作をカスタマイズするために使用します。
+  このスクリプトは、テトリスの特定の盤面（特にTDテンプレとDPCに関連した盤面）を練習する問題集としての機能を提供しています。
 
 ## 使用方法
 
