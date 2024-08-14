@@ -72,7 +72,7 @@
         },
         {
             id: 'honey_cup_1st_bag',
-            title: "【はちみつ砲】1巡目 ハードドロップのみ確定盤面から",
+            title: "【はちみつ砲】1巡目 (確定ミノ設置済み盤面から)",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
@@ -174,7 +174,7 @@
         },
         {
             id: 'dpc_sz',
-            title: "【DPC練習】s/z残し",
+            title: "【DPC練習】sz残し",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -192,7 +192,7 @@
         },
         {
             id: 'dpc_sz_s04',
-            title: "【DPC練習】s/z残し s-04",
+            title: "【DPC練習】sz残し 派生練習（sz/zs型）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -210,7 +210,7 @@
         },
         {
             id: 'dpc_sz_doukei',
-            title: "【DPC練習】s/z残し ssl(zzj)型",
+            title: "【DPC練習】sz残し 派生練習（ssl型）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -242,7 +242,7 @@
         },
         {
             id: 'dpc_o_harddrop_ver_pc_root',
-            title: "【DPC練習】o残し L->S(J->Z)型　pc練習",
+            title: "【DPC練習】o残し 派生練習（中:ls × 端:標準型）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -268,7 +268,7 @@
         },
         {
             id: 'dpc_o_dakyou_harddrop_ver_pc_root',
-            title: "【DPC練習】o残し　L->S(J->Z)型　妥協系　pc練習",
+            title: "【DPC練習】o残し 派生練習（中:ls × 端:妥協型）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -286,7 +286,7 @@
         },
         {
             id: 'dpc_o_dakyou_harddrop_ver_pc_root_hasei',
-            title: "【DPC練習】o残し　L->S(J->Z)型　s(z)が早い場合　pc練習",
+            title: "【DPC練習】o残し 派生練習（中:ls × 端:妥協型） 低確率分岐",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -312,7 +312,7 @@
         },
         {
             id: 'dpc_o_compromise_root',
-            title: "【DPC練習】o残し S->L(Z->J)型　妥協系",
+            title: "【DPC練習】o残し 派生練習（中:sl × 端:妥協型）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -330,7 +330,7 @@
         },
         {
             id: 'dpc_o_hasei',
-            title: "【DPC練習】o残し 派生4種",
+            title: "【DPC練習】o残し 派生練習（全4種）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 1,
@@ -570,7 +570,7 @@
         },
         {
             id: 'meisou_2junme',
-            title: "【迷走法】2巡目　判断練習",
+            title: "【迷走法】2巡目 判断練習",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
                 count: 2,
