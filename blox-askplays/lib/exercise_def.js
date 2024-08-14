@@ -221,6 +221,18 @@ const EXERCISES = [
                 pieceQueue: 'otsl',
                 mapCode: MAP_CODE_DEFAULT
             },
+            {
+                holdPiece: 's',
+                prevFixedQueue: 'isl',
+                pieceQueue: 'otzj',
+                mapCode: MAP_CODE_DEFAULT
+            },
+            {
+                holdPiece: 'z',
+                prevFixedQueue: 'izj',
+                pieceQueue: 'otsl',
+                mapCode: MAP_CODE_DEFAULT
+            },
         ]
     },
     {
@@ -251,6 +263,16 @@ const EXERCISES = [
             {
                 holdPiece: 'z',
                 prevFixedQueue: 'ztilojs',
+                mapCode: MAP_CODE_DEFAULT
+            },
+            {
+                holdPiece: 's',
+                prevFixedQueue: 'istjolz',
+                mapCode: MAP_CODE_DEFAULT
+            },
+            {
+                holdPiece: 'z',
+                prevFixedQueue: 'iztlojs',
                 mapCode: MAP_CODE_DEFAULT
             },
         ]
