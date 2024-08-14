@@ -15,7 +15,7 @@
 (function() {
     'use strict';
 
-    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-14-6")
+    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-14-8")
 
     // 定数定義
     const EXERCISES = [
@@ -658,16 +658,13 @@
     const SIMULATE_KEY_PRESS_DELAY = 100; // milliseconds
 
     // グローバル変数定義
-    let g_isSimulatingRKey;
-    let g_manager;
+    let g_manager; // 問題管理用のクラス
 
     // 環境の初期化処理
     function initEnv() {
-        // グローバル変数の初期化処理
-        g_isSimulatingRKey = false;
         g_manager = null; // ユーザがリストから問題を選択した時点で設定するためここではnullを設定しておく
 
-        // 画面下部にタイトルタグを作成
+        // 画面下部にゲームモードのタイトルを表示するためのタグを作成しておく
         let exerciseTitleElement = document.createElement('div');
         exerciseTitleElement.id = 'exerciseTitle';
         document.body.appendChild(exerciseTitleElement);
@@ -676,9 +673,7 @@
     // リトライに割り当てられている（前提）'r'キーの押下をシミュレートする
     function simulateRKeyPress(holdPiece = null) {
         setTimeout(() => {
-            g_isSimulatingRKey = true;
             simulateKeyPress('r');
-            g_isSimulatingRKey = false;
 
             // holdPieceがnullでない場合にのみホールドミノを更新
             // ※ 補足
@@ -771,7 +766,9 @@
     document.addEventListener('keydown', function(event) {
 
         // リトライボタン（'r'）を押下すると次の問題に進む
-        if (event.key === 'r' && !g_isSimulatingRKey && g_manager) {
+        // 補足：
+        //   event.isTrustedによって実際に押下されたイベントか、javascript上で押下をシミュレートしたイベントかを判断しています。
+        if (event.key === 'r' && event.isTrusted && g_manager) {
             event.preventDefault();
             g_manager.incrementGameCount();
             const exercise = g_manager.getCurrentExercise();
