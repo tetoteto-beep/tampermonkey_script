@@ -16,6 +16,7 @@ class ExerciseManager {
         // board_listを受け取り、デフォルト値を設定
         this.boardList = exercise.board_list || [{
             holdPiece: '',
+            prevFixedQueue: '',
             pieceQueue: '',
             mapCode: MAP_CODE_DEFAULT
         }];
@@ -61,7 +62,7 @@ class ExerciseManager {
 
         return {
             map_code: selectedBoard.mapCode,
-            piece_queue: selectedBoard.pieceQueue ? shuffleString(selectedBoard.pieceQueue, seed) : '',
+            piece_queue: (selectedBoard.prevFixedQueue || '') + (selectedBoard.pieceQueue ? shuffleString(selectedBoard.pieceQueue, seed) : ''),
             hold_piece: selectedBoard.holdPiece || '',
             win_condition: this.winCondition,
             seed: seed,
