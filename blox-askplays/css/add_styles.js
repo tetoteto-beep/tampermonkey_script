@@ -59,7 +59,7 @@ function addStyles() {
         color: #ccc;
         text-align: center;
         padding: 8px;
-        font-size: 12px;
+        font-size: 16px;
         z-index: 1000;
         border-top: 2px solid #4CAF50;
     }
