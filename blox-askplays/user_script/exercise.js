@@ -695,7 +695,8 @@
      // UI上の盤面情報の更新
     function updateField(exercise) {
 
-        // どうやら勝利条件は値だけ変えても、load-mapボタン押下時に変更前の値が参照される（値を変えても内部的には設定が反映されない）ため直接変更イベントを出しておく
+        // 勝利条件は値だけ変えても、load-mapボタン押下時に変更前の値が参照される（つまり、値だけ変えても内部的には設定が反映されない）。
+        // そのため、変更イベントもあわせてdispatchしておく。
         const event = new Event("change");
         document.getElementById('win-con').value = exercise.win_condition.type;
         document.getElementById('win-con').dispatchEvent(event);
@@ -712,22 +713,22 @@
     // ゲームモードの選択画面の表示
     function showSelectGameModeWindow() {
 
-        // create overlay
+        // オーバーレイの作成（画面全体にグレーのレイヤーを追加。ゲームモード選択画面はこの上に作成してく）
         let overlay = document.createElement('div');
         overlay.id = 'overlay';
         document.body.appendChild(overlay);
 
-        // create selection window on overlay
+        // オーバーレイ上にゲームモード選択ウインドウを作成
         let selectionWindow = document.createElement('div');
         selectionWindow.id = 'selectionWindow';
         overlay.appendChild(selectionWindow);
 
-        // create title on selection window
+        // ゲームモード選択ウインドウ上にタイトルを表示
         let title = document.createElement('h2');
         title.innerHTML = 'ゲームを選択してください';
         selectionWindow.appendChild(title);
 
-        // create dropdown on selection window
+        // ゲームモード選択ウインドウ上にドロップダウンを追加
         let dropdown = document.createElement('select');
         dropdown.id = 'gameModeSelector';
         EXERCISES.forEach(book => {
@@ -738,7 +739,7 @@
         });
         selectionWindow.appendChild(dropdown);
 
-        // create confirm-button on selection window and remove overlay when click this button
+        // 問題選択ウインドウ上に決定ボタンを追加
         let confirmButton = document.createElement('button');
         confirmButton.innerHTML = '決定';
         confirmButton.onclick = function() {
@@ -768,6 +769,8 @@
     window.addEventListener('load', loadMain);
 
     document.addEventListener('keydown', function(event) {
+
+        // リトライボタン（'r'）を押下すると次の問題に進む
         if (event.key === 'r' && !g_isSimulatingRKey && g_manager) {
             event.preventDefault();
             g_manager.incrementGameCount();
@@ -776,6 +779,7 @@
             simulateRKeyPress(exercise.hold_piece);
         }
 
+        // 'R'を押下すると一つ前の問題に戻る
         if (event.key === 'R') {
             g_manager.decrementGameCount();
             const exercise = g_manager.getCurrentExercise();
