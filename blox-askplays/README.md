@@ -10,17 +10,13 @@
 2. **スクリプトのインポート**  
    以下の URL からスクリプトをインポートできます。
 
-   - [blox_util.js](https://raw.githubusercontent.com/tetoteto-beep/tampermonkey_script/main/blox-askplays/user_script/blox_util.js)
-   - [exercise.js](https://raw.githubusercontent.com/tetoteto-beep/tampermonkey_script/main/blox-askplays/user_script/exercise.js)
+   - [user_script.js](https://raw.githubusercontent.com/tetoteto-beep/tampermonkey_script/main/blox-askplays/user_script.js)
 
    Tampermonkey のダッシュボードを開き、**「新しいスクリプトを追加」** をクリックします。次に、上記の URL をそれぞれのスクリプトとしてインポートします。
 
 ## スクリプトの説明
 
-- **blox_util.js**  
-  このスクリプトは、Blox のユーティリティ関数を提供します。特定の操作を効率的に行うための便利な関数が含まれています。
-
-- **exercise.js**  
+- **user_script.js**  
   このスクリプトは、特定の演習やタスクを実行するための機能を提供します。Blox の特定の動作をカスタマイズするために使用します。
 
 ## 使用方法
@@ -29,7 +25,7 @@
 
 ## キー設定について
 
-以下の定数は、スクリプトで使用されるキーの設定を管理します。
+以下の定数は、スクリプトで使用されるキーの設定を管理します。必要に応じて該当箇所を修正してご利用ください。
 
 ```javascript
 const GO_TO_NEXT_KEY = 'r'; // ！！注意！！　リトライキーと同じキーを設定すること

@@ -121,6 +121,13 @@
 
     // 画面ロード時に行うメイン処理を定義
     function loadMain() {
+
+        // ページ読み込み完了時にQキーを押下し、ToggleFocusModeにする処理
+        simulateKeyPress('q');
+
+        // チャット画面を閉じる
+        document.getElementById('close-chat').click();
+
         initEnv();
         showSelectGameModeWindow();
     }
