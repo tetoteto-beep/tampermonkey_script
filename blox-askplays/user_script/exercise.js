@@ -210,7 +210,7 @@
             ]
         },
         {
-            id: 'dpc_sz_doukei',
+            id: 'dpc_sz_ssl',
             title: "【DPC練習】sz残し 派生練習（ssl型）",
             win_condition: {
                 type: 1, // "0"Lines, "1"PC, "2"No Garbage
@@ -227,6 +227,50 @@
                     holdPiece: 'z',
                     prevFixedQueue: 'zj',
                     pieceQueue: 'iotsl',
+                    mapCode: MAP_CODE_DEFAULT
+                },
+                {
+                    holdPiece: 's',
+                    prevFixedQueue: 'sil',
+                    pieceQueue: 'otzj',
+                    mapCode: MAP_CODE_DEFAULT
+                },
+                {
+                    holdPiece: 'z',
+                    prevFixedQueue: 'zij',
+                    pieceQueue: 'otsl',
+                    mapCode: MAP_CODE_DEFAULT
+                },
+            ]
+        },
+        {
+            id: 'dpc_sz_loj_jol',
+            title: "【DPC練習】sz残し 派生練習（loj, jol型）",
+            win_condition: {
+                type: 1, // "0"Lines, "1"PC, "2"No Garbage
+                count: 1,
+            },
+            board_list: [
+                {
+                    holdPiece: 's',
+                    prevFixedQueue: 'stiloj',
+                    pieceQueue: 'z',
+                    mapCode: MAP_CODE_DEFAULT
+                },
+                {
+                    holdPiece: 'z',
+                    prevFixedQueue: 'ztijol',
+                    pieceQueue: 's',
+                    mapCode: MAP_CODE_DEFAULT
+                },
+                {
+                    holdPiece: 's',
+                    prevFixedQueue: 'stijolz',
+                    mapCode: MAP_CODE_DEFAULT
+                },
+                {
+                    holdPiece: 'z',
+                    prevFixedQueue: 'ztilojs',
                     mapCode: MAP_CODE_DEFAULT
                 },
             ]
