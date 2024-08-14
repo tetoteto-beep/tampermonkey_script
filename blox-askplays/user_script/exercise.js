@@ -16,9 +16,11 @@
 (function() {
     'use strict';
 
-    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-14-8")
+    console.log("スクリプトが正しく動作するか確認するためのログ出力。2024-08-14-9")
 
     // 定数定義
+    const GO_TO_NEXT_KEY = 'r'; // ！！注意！！　リトライキーと同じキーを設定すること
+    const BACK_TO_PREVONE_KEY = 'R';
     const SIMULATE_KEY_PRESS_DELAY = 100; // milliseconds
 
     // グローバル変数定義
@@ -34,10 +36,9 @@
         document.body.appendChild(exerciseTitleElement);
     }
 
-    // リトライに割り当てられている（前提）'r'キーの押下をシミュレートする
-    function simulateRKeyPress(holdPiece = null) {
+    function simulateGoToNextKeyPress(holdPiece = null) {
         setTimeout(() => {
-            simulateKeyPress('r');
+            simulateKeyPress(GO_TO_NEXT_KEY);
 
             // holdPieceがnullでない場合にのみホールドミノを更新
             // ※ 補足
@@ -129,23 +130,23 @@
 
     document.addEventListener('keydown', function(event) {
 
-        // リトライボタン（'r'）を押下すると次の問題に進む
+        // 次の問題に進む
         // 補足：
         //   event.isTrustedによって実際に押下されたイベントか、javascript上で押下をシミュレートしたイベントかを判断しています。
-        if (event.key === 'r' && event.isTrusted && g_manager) {
+        if (event.key === GO_TO_NEXT_KEY && event.isTrusted && g_manager) {
             event.preventDefault();
             g_manager.incrementGameCount();
             const exercise = g_manager.getCurrentExercise();
             updateField(exercise);
-            simulateRKeyPress(exercise.hold_piece);
+            simulateGoToNextKeyPress(exercise.hold_piece);
         }
 
-        // 'R'を押下すると一つ前の問題に戻る
-        if (event.key === 'R') {
+        // 一つ前の問題に戻る
+        if (event.key === BACK_TO_PREVONE_KEY) {
             g_manager.decrementGameCount();
             const exercise = g_manager.getCurrentExercise();
             updateField(exercise);
-            simulateRKeyPress(exercise.hold_piece);
+            simulateGoToNextKeyPress(exercise.hold_piece);
         }
     });
 
