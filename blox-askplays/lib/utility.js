@@ -138,3 +138,27 @@ function convertToColor(piece) {
     // 入力文字に対応する色を返す
     return pieceToColorMap[piece] || "unknown";
 }
+
+// 通知を表示する関数
+function showNotification(message) {
+    const notification = document.createElement("div");
+    notification.textContent = message;
+
+    // CSSクラスを追加
+    notification.classList.add("notification");
+
+    document.body.appendChild(notification);
+
+    // 表示時にフェードイン
+    setTimeout(() => {
+        notification.style.opacity = "1";
+    }, 100);
+
+    // 2秒後にフェードアウト
+    setTimeout(() => {
+        notification.style.opacity = "0";
+        setTimeout(() => {
+            notification.remove();
+        }, 500); // フェードアウト完了後に削除
+    }, 2000);
+}

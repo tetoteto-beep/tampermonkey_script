@@ -63,6 +63,24 @@ function addStyles() {
         z-index: 1000;
         border-top: 2px solid #4CAF50;
     }
+
+    /* 通知のスタイル */
+    .notification {
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        z-index: 1000;
+        font-size: 16px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        opacity: 0; /* 初期状態は透明 */
+        transition: opacity 0.5s ease-in-out; /* アニメーションを追加 */
+    }
+
 `;
     document.head.appendChild(style);
 }

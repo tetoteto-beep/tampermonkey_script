@@ -101,18 +101,21 @@ class ExerciseManager {
 
     // 現在の問題を苦手問題に追加
     addCurGameToWeakPointList(){
-
         // まだ登録されていない場合のみ登録する
         if (!this.weakPointGameList.includes(this.currentGameCount)) {
             this.weakPointGameList.push(this.currentGameCount);
-            console.log("pushed list:", this.weakPointGameList)
+            showNotification(`#${this.currentGameCount}を苦手問題として登録しました。`);
         }
     }
 
 
     // 問題をカウント1ずつアップさせるのではなく、苦手問題から選出するように変更する
     changeGameModeToWeakPoint(){
-        this.GAME_MODE = ExerciseManager.GAME_MODE.WEAK_POINT
+
+        if (this.weakPointGameList != ExerciseManager.GAME_MODE.WEAK_POINT) {
+            this.GAME_MODE = ExerciseManager.GAME_MODE.WEAK_POINT
+            showNotification("苦手問題モードに移行します。");
+        }
     }
 
 }
