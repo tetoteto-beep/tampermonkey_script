@@ -2,6 +2,11 @@ const MAP_CODE_DEFAULT = '000000000000000000000000000000000000000000000000000000
 
 class ExerciseManager {
 
+    static GAME_MODE = {
+        NORMAL: 'normal',
+        WEAK_POINT: 'weak_point',
+    };
+
     constructor(exercise) {
         // IDとタイトルを受け取る
         this.id = exercise.id || 'default_id';
@@ -26,6 +31,11 @@ class ExerciseManager {
 
         this.SEED_SUFFIX = Math.random().toString(36).substr(2, 4);
         this.NOTIFY_USER_GAME_COUNT = 100;
+
+        // 苦手問題の番号を記憶するための配列
+        this.weakPointGameList = [];
+
+        this.GAME_MODE = ExerciseManager.GAME_MODE.NORMAL;
     }
 
     /**
@@ -57,7 +67,16 @@ class ExerciseManager {
     * 現在のエクササイズに対応するランダムなボードを取得します。
     */
     getCurrentExercise() {
-        const seed = `${this.currentGameCount}_${this.SEED_SUFFIX}`;
+
+        // シード値の算出
+        let seed = `${this.currentGameCount}_${this.SEED_SUFFIX}`;
+
+        // 苦手ゲームモードの場合は、weakPointGameList配列からランダム（シード値固定）で取得する
+        if (this.GAME_MODE == ExerciseManager.GAME_MODE.WEAK_POINT) {
+            const gameCount = getRandomElementFromList(this.weakPointGameList, seed);
+            seed = `${gameCount}_${this.SEED_SUFFIX}`;
+        }
+
         const selectedBoard = getRandomElementFromList(this.boardList, seed);
 
         return {
@@ -78,6 +97,22 @@ class ExerciseManager {
             console.log(`Game count reached ${this.currentGameCount}, which is a multiple of ${this.NOTIFY_USER_GAME_COUNT}!`);
             alert(`Game count reached ${this.currentGameCount}, which is a multiple of ${this.NOTIFY_USER_GAME_COUNT}!`);
         }
+    }
+
+    // 現在の問題を苦手問題に追加
+    addCurGameToWeakPointList(){
+
+        // まだ登録されていない場合のみ登録する
+        if (!this.weakPointGameList.includes(this.currentGameCount)) {
+            this.weakPointGameList.push(this.currentGameCount);
+            console.log("pushed list:", this.weakPointGameList)
+        }
+    }
+
+
+    // 問題をカウント1ずつアップさせるのではなく、苦手問題から選出するように変更する
+    changeGameModeToWeakPoint(){
+        this.GAME_MODE = ExerciseManager.GAME_MODE.WEAK_POINT
     }
 
 }

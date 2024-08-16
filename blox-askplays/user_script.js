@@ -21,6 +21,8 @@
     // 定数定義
     const GO_TO_NEXT_KEY = 'r'; // ！！注意！！　リトライキーと同じキーを設定すること
     const BACK_TO_PREVONE_KEY = 'R';
+    const ADD_WEAK_POINT_LIST_KEY = 'a'
+    const CHANGE_GAME_MODE_TO_WEAK_POINT_KEY = 'A'
     const SIMULATE_KEY_PRESS_DELAY = 100; // milliseconds
 
     // グローバル変数定義
@@ -154,6 +156,16 @@
             const exercise = g_manager.getCurrentExercise();
             updateField(exercise);
             simulateGoToNextKeyPress(exercise.hold_piece);
+        }
+
+        // 現在の問題を苦手問題に追加
+        if (event.key === ADD_WEAK_POINT_LIST_KEY) {
+            g_manager.addCurGameToWeakPointList();
+        }
+
+        // 問題をカウント1ずつアップさせるのではなく、苦手問題から選出するように変更する
+        if (event.key === CHANGE_GAME_MODE_TO_WEAK_POINT_KEY) {
+            g_manager.changeGameModeToWeakPoint();
         }
     });
 
