@@ -278,6 +278,46 @@ const EXERCISES = [
         ]
     },
     {
+        id: 'dpc_sz_misjudgment_1junme',
+        title: "【DPC練習】sz残し 判断ミス時の2ライン消し妥協DPC地形",
+        win_condition: {
+            type: 1, // "0"Lines, "1"PC, "2"No Garbage
+            count: 1,
+        },
+        board_list: [
+            {
+                holdPiece: 's',
+                prevFixedQueue: 'lts',
+                pieceQueue: 'iojz',
+                mapCode: MAP_CODE_DEFAULT
+            },
+            {
+                holdPiece: 'z',
+                prevFixedQueue: 'jtz',
+                pieceQueue: 'iols',
+                mapCode: MAP_CODE_DEFAULT
+            },
+        ]
+    },
+    {
+        id: 'dpc_sz_misjudgment_2junme',
+        title: "【DPC練習】sz残し 判断ミス時の2ライン消し妥協DPC地形　派生練習",
+        win_condition: {
+            type: 1, // "0"Lines, "1"PC, "2"No Garbage
+            count: 1,
+        },
+        board_list: [
+            {
+                pieceQueue: 'i',
+                mapCode: '00000000000000000660000000000000000004660000000000000000044400000000000000000773000000000000000077330000000000000000066300000000000000005566000000000000000005220000000000000000052200000000000000000000'
+            },
+            {
+                pieceQueue: 'i',
+                mapCode: '00000000000000000000000000000000000004220000000000000000042200000000000000004477000000000000000007730000000000000000663300000000000000000663000000000000000005550000000000000000057700000000000000000770'
+            },
+        ]
+    },
+    {
         id: 'dpc_o',
         title: "【DPC練習】o残し",
         win_condition: {
