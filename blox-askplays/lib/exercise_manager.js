@@ -102,7 +102,8 @@ class ExerciseManager {
     // 現在の問題を苦手問題に追加
     addCurGameToWeakPointList(){
         // まだ登録されていない場合のみ登録する
-        if (!this.weakPointGameList.includes(this.currentGameCount)) {
+        if ((this.GAME_MODE != ExerciseManager.GAME_MODE.WEAK_POINT)
+            && (!this.weakPointGameList.includes(this.currentGameCount))) {
             this.weakPointGameList.push(this.currentGameCount);
             showNotification(`#${this.currentGameCount}を苦手問題として登録しました。`);
         }
@@ -112,9 +113,13 @@ class ExerciseManager {
     // 問題をカウント1ずつアップさせるのではなく、苦手問題から選出するように変更する
     changeGameModeToWeakPoint(){
 
-        if (this.weakPointGameList != ExerciseManager.GAME_MODE.WEAK_POINT) {
-            this.GAME_MODE = ExerciseManager.GAME_MODE.WEAK_POINT
-            showNotification("苦手問題モードに移行します。");
+        if (this.GAME_MODE != ExerciseManager.GAME_MODE.WEAK_POINT) {
+            if (this.weakPointGameList.length > 0 ) {
+                this.GAME_MODE = ExerciseManager.GAME_MODE.WEAK_POINT
+                showNotification("苦手問題モードに移行します。");
+            } else {
+                showNotification("まだ苦手問題が登録されていませんので苦手問題モードへは移行できません。");
+            }
         }
     }
 
