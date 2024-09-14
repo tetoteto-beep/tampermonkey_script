@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Toggle Invisible/Visible Skin Every n Seconds
+// @name         Toggle Invisible/Visible Skin
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Switch between invisible and visible skin with the 'c' key, and toggle automatically every n seconds.
+// @description  Switch between invisible and visible skin with the 'c' key
 // @author       You
 // @match        https://jstris.jezevec10.com/?play=1&*
 // @grant        none
@@ -14,8 +14,9 @@
     const INVISIBLE_SKIN_ID = 'bs01';
     const VISIBLE_SKIN_ID = 'bs0';
 
-    const INVISIBLE_TOGGLE_KEY = 'c'; // Key to switch to invisible skin
-    const VISIBLE_TOGGLE_KEY = 'C'; // Key to switch to visible skin
+    const INVISIBLE_TOGGLE_KEY = 'C'; // Key to switch to invisible skin
+    const VISIBLE_TOGGLE_KEY = 'c'; // Key to switch to visible skin
+    const RETRY_GAME_KEY = 'r';
 
     const VISIBLE_DURATION = 1000; // Time in milliseconds the skin is visible
     const INVISIBLE_DURATION = 7000; // Time in milliseconds the skin is invisible
@@ -50,20 +51,31 @@
         changeSkin(VISIBLE_SKIN_ID);
     }
 
-    function cycleSkin() {
-        changeSkinToVisible();
-
-        setTimeout(changeSkinToInvisible, VISIBLE_DURATION);
-    }
-
+    //function cycleSkin() {
+    //    changeSkinToVisible();
+    //
+    //    setTimeout(changeSkinToInvisible, VISIBLE_DURATION);
+    //}
     //setInterval(cycleSkin, INVISIBLE_DURATION + VISIBLE_DURATION);
 
     document.addEventListener('keydown', function(event) {
-        if (event.key === INVISIBLE_TOGGLE_KEY) {
+
+        // ゲーム開始時とトグルキーを押下した際にinvisibleにする
+        if ((event.key === RETRY_GAME_KEY) || (event.key === INVISIBLE_TOGGLE_KEY)) {
             changeSkinToInvisible();
-        } else if (event.key === VISIBLE_TOGGLE_KEY) {
+        }
+        // 表示用のトグルキーを押下することで1秒だけ表示する
+        else if (event.key === VISIBLE_TOGGLE_KEY) {
             changeSkinToVisible();
+
+            // 1秒後にinvisibleに戻す
+            setTimeout(function() {
+                changeSkinToInvisible();
+            }, 1000);
         }
     });
+
+    // デフォルトでinvisibleにしたい。
+    window.addEventListener('load', changeSkinToInvisible);
 
 })();
