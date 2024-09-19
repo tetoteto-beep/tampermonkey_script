@@ -112,10 +112,6 @@
             gridCanvas.width = playingField.width;
             gridCanvas.height = playingField.height;
 
-            // グリッドキャンバスの位置を再設定
-            gridCanvas.style.left = '0px';
-            gridCanvas.style.top = '0px';
-
             // セルサイズを再計算
             cellWidth = gridCanvas.width / 10; // 10列
             cellHeight = gridCanvas.height / 20; // 20行
