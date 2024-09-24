@@ -24,7 +24,7 @@ function generateMapCode(holePos, seed) {
     let heights = new Array(mapWidth).fill(0);
 
     // 最初の列の高さを決定（0～10の範囲でランダム）
-    heights[0] = Math.floor(random(seed) * 11)*5;
+    heights[0] = Math.floor(random(seed) * 11)+5;
 
     // 残りの列の高さをランダムに決定
     for (let i = 1; i < mapWidth; i++) {
